@@ -1,0 +1,25 @@
+{% import "_includes/forms" as forms %}
+
+{% block content %}
+
+    {{ forms.textField({
+        label: "Plugin Name@"|t('sprout-email'),
+        instructions: "Intuitive, human-readable plugin name for the end user."|t('sprout-email'),
+        id: 'pluginNameOverride',
+        name: 'pluginNameOverride',
+        value: settings.pluginNameOverride,
+        autofocus: true,
+        first: true,
+        errors: ''
+    }) }}
+
+    {% set advancedInput %}
+
+    {% endset %}
+
+    {{ forms.field({
+        label: "Choose which features to enable"|t('sprout-email'),
+        instructions: "Disabled items will be removed from the sidebar navigation and no longer accessible in the Control Panel."|t('sprout-email')
+    }, advancedInput) }}
+
+{% endblock %}
