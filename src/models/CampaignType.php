@@ -5,14 +5,14 @@ namespace barrelstrength\sproutcampaign\models;
 use barrelstrength\sproutbaseemail\base\Mailer;
 use barrelstrength\sproutbaseemail\base\SenderTrait;
 use barrelstrength\sproutbaseemail\SproutBaseEmail;
-use barrelstrength\sproutemail\elements\CampaignEmail;
+use barrelstrength\sproutcampaign\elements\CampaignEmail;
 use craft\base\Field;
 use craft\base\Model;
 use craft\behaviors\FieldLayoutBehavior;
 use craft\models\FieldLayout;
 use craft\records\FieldLayoutField;
 use craft\validators\UniqueValidator;
-use barrelstrength\sproutemail\records\CampaignType as CampaignTypeRecord;
+use barrelstrength\sproutcampaign\records\CampaignType as CampaignTypeRecord;
 
 /**
  * Class CampaignTypeModel

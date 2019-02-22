@@ -72,7 +72,7 @@ class Settings extends Model implements SproutSettingsInterface
                 'label' => Craft::t('sprout-campaign', 'Campaigns'),
                 'url' => 'sprout-campaign/settings/campaigntypes',
                 'selected' => 'campaigntypes',
-                'template' => 'sprout-base-email/settings/campaigntypes',
+                'template' => 'sprout-campaign/settings/campaigntypes',
                 'settingsForm' => false
             ],
         ];

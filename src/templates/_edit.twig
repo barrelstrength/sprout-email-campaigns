@@ -2,47 +2,47 @@
 {% import "_includes/forms" as forms %}
 
 {% set crumbs = [
-    { label: "Email"|t('sprout-email'), url: url('sprout-email/campaigns') },
+    { label: "Email"|t('sprout-campaign'), url: url('sprout-campaign/campaigns') },
 ] %}
 
-{% set title  = campaignEmail is defined and campaignEmail.title is not empty ? campaignEmail.title : 'Create a new Campaign Email'|t('sprout-email') %}
+{% set title  = campaignEmail is defined and campaignEmail.title is not empty ? campaignEmail.title : 'Create a new Campaign Email'|t('sprout-campaign') %}
 {% set mailer = campaignType.getMailer() %}
 
 {% set fullPageForm = true %}
-{% set saveShortcutRedirect = url('sprout-email/campaigns/edit/{id}') %}
+{% set saveShortcutRedirect = url('sprout-campaign/campaigns/edit/{id}') %}
 
 {% block actionButton %}
 
     <section class="buttons">
         <div class="btngroup submit">
             <input type="submit" class="btn submit"
-                   value="{{ 'Save'|t('sprout-email') }}">
+                   value="{{ 'Save'|t('sprout-campaign') }}">
 
             <div class="btn submit menubtn"></div>
             <div class="menu">
                 <ul>
                     {% if emailId %}
                         <li><a class="formsubmit"
-                               data-redirect="{{ "sprout-email/campaigns/edit/{id}"|hash }}">
-                                {{ "Save and continue editing"|t('sprout-email') }}
+                               data-redirect="{{ "sprout-campaign/campaigns/edit/{id}"|hash }}">
+                                {{ "Save and continue editing"|t('sprout-campaign') }}
                                 <span class="shortcut">⌘S</span></a></li>
                         <li><a class="formsubmit" data-param='saveAsNew'
                                data-value="true"
-                               data-redirect="{{ " sprout-email/campaigns/edit/{id}"|hash }}">{{ "Save as a new email"|t('sprout-email') }}</a>
+                               data-redirect="{{ " sprout-campaign/campaigns/edit/{id}"|hash }}">{{ "Save as a new email"|t('sprout-campaign') }}</a>
                         </li>
                     {% endif %}
 
-                    {% set addAnotherUrl="sprout-email/campaigns/" ~ campaignType.id ~ "/new" %}
+                    {% set addAnotherUrl="sprout-campaign/campaigns/" ~ campaignType.id ~ "/new" %}
 
                     <li><a class="formsubmit"
                            data-redirect="{{ addAnotherUrl|hash }}">
-                            {{ "Save and add another"|t('sprout-email') }}</a>
+                            {{ "Save and add another"|t('sprout-campaign') }}</a>
                     </li>
                     {% if campaignEmail.id is not null %}
                         <hr>
                         <ul>
                             <li><a class="formsubmit error"
-                                   data-action="sprout-base-email/campaign-email/delete-campaign-email"
+                                   data-action="sprout-campaign/campaign-email/delete-campaign-email"
                                    data-confirm="{{ 'Are you sure you want to delete this email?'|t('sprout-base-email') }}"
                                    data-redirect="{{ "sprout-email/campaigns"|hash }}">{{ "Delete"|t('sprout-base-email') }}</a>
                             </li>

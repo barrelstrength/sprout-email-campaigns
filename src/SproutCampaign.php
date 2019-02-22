@@ -154,8 +154,9 @@ class SproutCampaign extends Plugin
             ],
 
             // Settings
+
             'sprout-campaign/settings/campaigntypes/edit/<campaignTypeId:\d+|new>' =>
-                'sprout-campaignl/campaign-type/campaign-settings',
+                'sprout-campaign/campaign-type/campaign-settings',
 
 
             'sprout-campaign/settings/<settingsSectionHandle:.*>' =>
