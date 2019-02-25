@@ -4,9 +4,9 @@ namespace barrelstrength\sproutcampaign\mailers;
 
 use barrelstrength\sproutbaseemail\base\EmailElement;
 use barrelstrength\sproutbaseemail\base\Mailer;
-use barrelstrength\sproutbaseemail\base\CampaignEmailSenderInterface;
-use barrelstrength\sproutbaseemail\web\assets\email\CopyPasteAsset;
-use barrelstrength\sproutemail\elements\CampaignEmail;
+use barrelstrength\sproutcampaign\base\CampaignEmailSenderInterface;
+use barrelstrength\sproutcampaign\web\assets\CopyPasteAsset;
+use barrelstrength\sproutcampaign\elements\CampaignEmail;
 use barrelstrength\sproutbaseemail\models\ModalResponse;
 use Craft;
 
@@ -61,7 +61,7 @@ class CopyPasteMailer extends Mailer implements CampaignEmailSenderInterface
      */
     public function getActionForPrepareModal(): string
     {
-        return 'sprout-email/campaign-email/send-campaign-email';
+        return 'sprout-campaign/campaign-email/send-campaign-email';
     }
 
     /**
@@ -96,7 +96,7 @@ class CopyPasteMailer extends Mailer implements CampaignEmailSenderInterface
             $response = new ModalResponse();
             $response->success = true;
 
-            $response->content = Craft::$app->getView()->renderPageTemplate('sprout-base-email/_components/mailers/copypaste/schedulecampaignemail',
+            $response->content = Craft::$app->getView()->renderPageTemplate('sprout-campaign/_components/mailers/copypaste/schedulecampaignemail',
                 [
                     'email' => $campaignEmail,
                     'html' => $campaignEmail->getEmailTemplates()->getHtmlBody(),

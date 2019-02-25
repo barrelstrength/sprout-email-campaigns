@@ -13,7 +13,7 @@ use yii\base\Exception;
 /**
  * Class CampaignTypes
  *
- * @package barrelstrength\sproutemail\services
+ * @package barrelstrength\sproutcampaign\services
  *
  * @property array $campaignTypes
  */

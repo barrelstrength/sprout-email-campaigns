@@ -1,6 +1,6 @@
 {% extends "sprout-base-email/_layouts/elementindex" %}
-{% set title = "Campaign Email"|t('sprout-email') %}
-{% set elementType = 'barrelstrength\\sproutemail\\elements\\CampaignEmail' %}
+{% set title = "Campaign Email"|t('sprout-campaign') %}
+{% set elementType = 'barrelstrength\\sproutcampaign\\elements\\CampaignEmail' %}
 
 {% block actionButton %}
     {% set campaignTypes = craft.sproutEmail.getCampaignTypes() %}
@@ -10,12 +10,12 @@
 
             {% if campaignTypes|length %}
 
-                <div class="btn submit menubtn add icon">{{ "New Campaign"|t('sprout-email') }}</div>
+                <div class="btn submit menubtn add icon">{{ "New Campaign"|t('sprout-campaign') }}</div>
                 <div class="menu">
                     <ul>
                         {% for campaignType in campaignTypes %}
                             <li>
-                                <a href="{{ url('sprout-email/campaigns/' ~ campaignType.id ~ '/new') }}">{{ campaignType.name|t('sprout-email') }}</a>
+                                <a href="{{ url('sprout-campaign/' ~ campaignType.id ~ '/new') }}">{{ campaignType.name|t('sprout-campaign') }}</a>
                             </li>
                         {% endfor %}
                     </ul>
@@ -24,7 +24,7 @@
             {% else %}
 
                 <a class="btn submit add icon"
-                   href="{{ url('sprout-email/settings/campaigntypes/edit/new') }}">{{ "New Campaign Type"|t('sprout-email') }}</a>
+                   href="{{ url('sprout-campaign/settings/campaigntypes/edit/new') }}">{{ "New Campaign Type"|t('sprout-campaign') }}</a>
 
             {% endif %}
         </div>

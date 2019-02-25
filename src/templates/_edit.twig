@@ -2,14 +2,14 @@
 {% import "_includes/forms" as forms %}
 
 {% set crumbs = [
-    { label: "Email"|t('sprout-campaign'), url: url('sprout-campaign/campaigns') },
+    { label: "Email"|t('sprout-campaign'), url: url('sprout-campaign') },
 ] %}
 
 {% set title  = campaignEmail is defined and campaignEmail.title is not empty ? campaignEmail.title : 'Create a new Campaign Email'|t('sprout-campaign') %}
 {% set mailer = campaignType.getMailer() %}
 
 {% set fullPageForm = true %}
-{% set saveShortcutRedirect = url('sprout-campaign/campaigns/edit/{id}') %}
+{% set saveShortcutRedirect = url('sprout-campaign/edit/{id}') %}
 
 {% block actionButton %}
 
@@ -23,16 +23,16 @@
                 <ul>
                     {% if emailId %}
                         <li><a class="formsubmit"
-                               data-redirect="{{ "sprout-campaign/campaigns/edit/{id}"|hash }}">
+                               data-redirect="{{ "sprout-campaign/edit/{id}"|hash }}">
                                 {{ "Save and continue editing"|t('sprout-campaign') }}
                                 <span class="shortcut">⌘S</span></a></li>
                         <li><a class="formsubmit" data-param='saveAsNew'
                                data-value="true"
-                               data-redirect="{{ " sprout-campaign/campaigns/edit/{id}"|hash }}">{{ "Save as a new email"|t('sprout-campaign') }}</a>
+                               data-redirect="{{ " sprout-campaign/edit/{id}"|hash }}">{{ "Save as a new email"|t('sprout-campaign') }}</a>
                         </li>
                     {% endif %}
 
-                    {% set addAnotherUrl="sprout-campaign/campaigns/" ~ campaignType.id ~ "/new" %}
+                    {% set addAnotherUrl="sprout-campaign/" ~ campaignType.id ~ "/new" %}
 
                     <li><a class="formsubmit"
                            data-redirect="{{ addAnotherUrl|hash }}">
@@ -43,8 +43,8 @@
                         <ul>
                             <li><a class="formsubmit error"
                                    data-action="sprout-campaign/campaign-email/delete-campaign-email"
-                                   data-confirm="{{ 'Are you sure you want to delete this email?'|t('sprout-base-email') }}"
-                                   data-redirect="{{ "sprout-email/campaigns"|hash }}">{{ "Delete"|t('sprout-base-email') }}</a>
+                                   data-confirm="{{ 'Are you sure you want to delete this email?'|t('sprout-campaign') }}"
+                                   data-redirect="{{ "sprout-campaign"|hash }}">{{ "Delete"|t('sprout-campaign') }}</a>
                             </li>
                         </ul>
                     {% endif %}
@@ -58,8 +58,8 @@
 {% block content %}
 
     <input type="hidden" name="action"
-           value="sprout-email/campaign-email/save-campaign-email">
-    {{ redirectInput("sprout-email/campaigns") }}
+           value="sprout-campaign/campaign-email/save-campaign-email">
+    {{ redirectInput("sprout-campaign") }}
 
     {% if emailId %}
         <input type="hidden" name="emailId" value="{{ emailId }}">
@@ -70,7 +70,7 @@
     {% if namespace is not defined %}{% set namespace = 'fields' %}{% endif %}
 
     <div id="fields">
-        {% include "sprout-base-email/campaigns/_fieldlayout" %}
+        {% include "sprout-campaign/_fieldlayout" %}
     </div>
 {% endblock %}
 
@@ -78,9 +78,9 @@
 
     {#<div class="heading">#}
     {#<label>Mailer <span class="info">Update your Mailer in the#}
-    {#<a href="{{ cpUrl('sprout-email/settings/campaigntypes/edit') ~ '/' ~ campaignTypeId }}">#}
+    {#<a href="{{ cpUrl('sprout-campaign/settings/campaigntypes/edit') ~ '/' ~ campaignTypeId }}">#}
     {#Campaign Type Settings</a>. Add new Mailers in the#}
-    {#<a href="{{ cpUrl('sprout-email/settings/mailers') }}">Mailer Settings</a></span></label>#}
+    {#<a href="{{ cpUrl('sprout-campaign/settings/mailers') }}">Mailer Settings</a></span></label>#}
     {#</div>#}
     {#<div class="input">#}
     {#<h6>{{ mailer.displayName() }}</h6>#}
@@ -89,7 +89,7 @@
     {#{% if craft.sproutEmail.displayDateScheduled() %}#}
     {#{{ forms.dateTimeField({#}
     {#label: "Schedule <span
-        class='info'>The date and time to send this email.</span>"|t('sprout-email'),#}
+        class='info'>The date and time to send this email.</span>"|t('sprout-campaign'),#}
     {#id: 'dateScheduled',#}
     {#name: 'dateScheduled',#}
     {#value: campaignEmail.dateScheduled,#}
@@ -99,7 +99,7 @@
 
     {% if mailer.hasSender() %}
         <div class="meta read-only sprout-meta-heading">
-            <h6>{{ "Sender"|t('sprout-base-email') }}</h6>
+            <h6>{{ "Sender"|t('sprout-campaign') }}</h6>
         </div>
         <hr>
         <div class="meta">
@@ -110,7 +110,7 @@
 
     {% if mailer.hasRecipients() %}
         <div class="meta read-only sprout-meta-heading">
-            <h6>{{ "Recipients"|t('sprout-base-email') }}</h6>
+            <h6>{{ "Recipients"|t('sprout-campaign') }}</h6>
         </div>
         <hr>
 
@@ -118,8 +118,8 @@
 
             {% if mailer.hasInlineRecipients() %}
                 {{ forms.textField({
-                    label: "Recipients <span class='info'>A comma separated list of email addresses.</span>"|t('sprout-email'),
-                    placeholder: "user@domain.com, other@domain.com"|t('sprout-email'),
+                    label: "Recipients <span class='info'>A comma separated list of email addresses.</span>"|t('sprout-campaign'),
+                    placeholder: "user@domain.com, other@domain.com"|t('sprout-campaign'),
                     name: "sproutEmail[recipients]",
                     class: "code",
                     value: campaignEmail is defined ? campaignEmail.recipients : "",
@@ -145,14 +145,14 @@
     {% endif %}
 
     <div class="meta read-only sprout-meta-heading">
-        <h6>{{ "General Settings"|t('sprout-base-email') }}</h6>
+        <h6>{{ "General Settings"|t('sprout-campaign') }}</h6>
     </div>
     <hr>
 
     <div class="meta">
 
         {{ forms.textField({
-            label: "Slug"|t('sprout-email'),
+            label: "Slug"|t('sprout-campaign'),
             id: 'slug',
             name: 'slug',
             value: campaignEmail.slug,
@@ -161,7 +161,7 @@
         }) }}
 
         {{ forms.lightswitchField({
-            label: "Status"|t('sprout-email'),
+            label: "Status"|t('sprout-campaign'),
             id: 'enabled',
             name: 'enabled',
             on: campaignEmail.enabled

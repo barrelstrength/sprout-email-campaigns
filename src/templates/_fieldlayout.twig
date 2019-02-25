@@ -3,13 +3,13 @@
 
 {% if campaignEmail.getErrors('subjectLine') %}
 
-    {% set subjectLineError = ['Subject Line cannot be blank.'|t('sprout-email')] %}
+    {% set subjectLineError = ['Subject Line cannot be blank.'|t('sprout-campaign')] %}
 {% endif %}
 
 {% if not campaignType.hasAdvancedTitles %}
 
     {{ textField({
-        label: "Subject Line"|t('sprout-email'),
+        label: "Subject Line"|t('sprout-campaign'),
         id: 'subjectLine',
         name: 'subjectLine',
         value: campaignEmail.subjectLine,
@@ -39,7 +39,7 @@
 {% else %}
 
     {{ textareaField({
-        label: "Body"|t('sprout-base-email'),
+        label: "Body"|t('sprout-campaign'),
         id: 'defaultBody',
         name: 'defaultBody',
         value: campaignEmail.defaultBody,

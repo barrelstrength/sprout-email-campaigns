@@ -7,10 +7,10 @@ use barrelstrength\sproutbaseemail\base\Mailer;
 use barrelstrength\sproutbaseemail\mailers\DefaultMailer;
 use barrelstrength\sproutbaseemail\SproutBaseEmail;
 use barrelstrength\sproutbaseemail\web\assets\email\EmailAsset;
-use barrelstrength\sproutemail\elements\db\CampaignEmailQuery;
-use barrelstrength\sproutemail\records\CampaignEmail as CampaignEmailRecord;
+use barrelstrength\sproutcampaign\elements\db\CampaignEmailQuery;
+use barrelstrength\sproutcampaign\records\CampaignEmail as CampaignEmailRecord;
 use barrelstrength\sproutcampaign\models\CampaignType;
-use barrelstrength\sproutemail\SproutEmail;
+use barrelstrength\sproutcampaign\SproutCampaign;
 use Craft;
 use craft\base\Element;
 use craft\elements\actions\Delete;
@@ -186,7 +186,7 @@ class CampaignEmail extends EmailElement
             ]
         ];
 
-        $campaignTypes = SproutEmail::$app->campaignTypes->getCampaignTypes();
+        $campaignTypes = SproutCampaign::$app->campaignTypes->getCampaignTypes();
 
         $sources[] = ['heading' => Craft::t('sprout-campaign', 'Campaigns')];
 
@@ -261,7 +261,7 @@ class CampaignEmail extends EmailElement
     {
         $campaignTypeId = $this->campaignTypeId;
 
-        $campaignType = SproutEmail::$app->campaignTypes->getCampaignTypeById($campaignTypeId);
+        $campaignType = SproutCampaign::$app->campaignTypes->getCampaignTypeById($campaignTypeId);
 
         $this->fieldLayoutId = $campaignType->fieldLayoutId;
 
@@ -342,7 +342,7 @@ class CampaignEmail extends EmailElement
      */
     public function getTableAttributeHtml(string $attribute): string
     {
-        $campaignType = SproutEmail::$app->campaignTypes->getCampaignTypeById($this->campaignTypeId);
+        $campaignType = SproutCampaign::$app->campaignTypes->getCampaignTypeById($this->campaignTypeId);
 
         $passHtml = '<span class="success" title="'.Craft::t('sprout-campaign', 'Passed').'" data-icon="check"></span>';
         $failHtml = '<span class="error" title="'.Craft::t('sprout-campaign', 'Failed').'" data-icon="error"></span>';
@@ -508,7 +508,7 @@ class CampaignEmail extends EmailElement
      */
     public function getMailer(): Mailer
     {
-        $campaignType = SproutEmail::$app->campaignTypes->getCampaignTypeById($this->campaignTypeId);
+        $campaignType = SproutCampaign::$app->campaignTypes->getCampaignTypeById($this->campaignTypeId);
 
         return $campaignType->getMailer();
     }
@@ -518,7 +518,7 @@ class CampaignEmail extends EmailElement
      */
     public function getCampaignType(): CampaignType
     {
-        return SproutEmail::$app->campaignTypes->getCampaignTypeById($this->campaignTypeId);
+        return SproutCampaign::$app->campaignTypes->getCampaignTypeById($this->campaignTypeId);
     }
 
     /**
@@ -551,7 +551,7 @@ class CampaignEmail extends EmailElement
      */
     public function getUriFormat()
     {
-        $campaignType = SproutEmail::$app->campaignTypes->getCampaignTypeById($this->campaignTypeId);
+        $campaignType = SproutCampaign::$app->campaignTypes->getCampaignTypeById($this->campaignTypeId);
 
         if ($campaignType && $campaignType->hasUrls) {
             return $campaignType->urlFormat;
@@ -600,7 +600,7 @@ class CampaignEmail extends EmailElement
      */
     protected function route()
     {
-        $campaignType = SproutEmail::$app->campaignTypes->getCampaignTypeById($this->campaignTypeId);
+        $campaignType = SproutCampaign::$app->campaignTypes->getCampaignTypeById($this->campaignTypeId);
 
         if (!$campaignType) {
             return false;
@@ -615,7 +615,7 @@ class CampaignEmail extends EmailElement
         if (!Craft::$app->getView()->doesTemplateExist($campaignType->template.$extension)) {
             $templateName = $campaignType->template.$extension;
 
-            SproutEmail::error(Craft::t('sprout-campaign', "The template '{templateName}' could not be found", [
+            SproutCampaign::error(Craft::t('sprout-campaign', "The template '{templateName}' could not be found", [
                 'templateName' => $templateName
             ]));
         }

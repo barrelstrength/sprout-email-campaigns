@@ -124,7 +124,7 @@ class SproutCampaign extends Plugin
 
         $navigation['subnav']['campaigns'] = [
             'label' => Craft::t('sprout-campaign', 'Campaigns'),
-            'url' => 'sprout-campaign/campaigns'
+            'url' => 'sprout-campaign'
         ];
 
 
@@ -143,10 +143,10 @@ class SproutCampaign extends Plugin
             'sprout-campaign/preview/<emailType:campaign|notification|sent>/<emailId:\d+>' => [
                 'template' => 'sprout-base-email/_special/preview'
             ],
-            'sprout-campaign/campaigns/<campaignTypeId:\d+>/<emailId:new>' =>
+            'sprout-campaign/<campaignTypeId:\d+>/<emailId:new>' =>
                 'sprout-campaign/campaign-email/edit-campaign-email',
 
-            'sprout-campaign/campaigns/edit/<emailId:\d+>' =>
+            'sprout-campaign/edit/<emailId:\d+>' =>
                 'sprout-campaign/campaign-email/edit-campaign-email',
 
             'sprout-campaign' => [

@@ -2,7 +2,7 @@
 
 namespace barrelstrength\sproutcampaign\services;
 
-use barrelstrength\sproutbaseemail\base\CampaignEmailSenderInterface;
+use barrelstrength\sproutcampaign\base\CampaignEmailSenderInterface;
 use barrelstrength\sproutbaseemail\base\Mailer;
 use barrelstrength\sproutcampaign\elements\CampaignEmail;
 use barrelstrength\sproutcampaign\records\CampaignEmail as CampaignEmailRecord;
@@ -14,7 +14,7 @@ use yii\base\Exception;
 /**
  * Class CampaignEmails
  *
- * @package barrelstrength\sproutemail\services
+ * @package barrelstrength\sproutcampaign\services
  */
 class CampaignEmails extends Component
 {
@@ -90,15 +90,15 @@ class CampaignEmails extends Component
 
         if (!$campaignEmail->hasErrors()) {
             try {
-                if (Craft::$app->getElements()->saveElement($campaignEmail)) {
-                    return $campaignEmail;
+                if (!Craft::$app->getElements()->saveElement($campaignEmail, false)) {
+                    return false;
                 }
             } catch (\Exception $e) {
                 throw $e;
             }
         }
 
-        return false;
+        return true;
     }
 
     /**
