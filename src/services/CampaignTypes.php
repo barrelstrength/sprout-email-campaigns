@@ -121,7 +121,7 @@ class CampaignTypes extends Component
             $siteId = Craft::$app->getSites()->getPrimarySite()->id;
 
             Craft::$app->getQueue()->push(new ResaveElements([
-                'description' => Craft::t('sprout-email', 'Resaving campaign emails'),
+                'description' => Craft::t('sprout-campaign', 'Resaving campaign emails'),
                 'elementType' => CampaignEmail::class,
                 'criteria' => [
                     'siteId' => $siteId,

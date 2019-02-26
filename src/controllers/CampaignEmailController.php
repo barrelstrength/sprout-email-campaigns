@@ -428,7 +428,7 @@ class CampaignEmailController extends Controller
         ];
 
         // Create the token and redirect to the entry URL with the token in place
-        $token = Craft::$app->getTokens()->createToken(['sprout-email/campaign-email/view-shared-campaign-email', $params]);
+        $token = Craft::$app->getTokens()->createToken(['sprout-campaign/campaign-email/view-shared-campaign-email', $params]);
 
         $emailUrl = '';
         if ($campaignEmail->getUrl() !== null) {

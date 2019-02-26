@@ -87,6 +87,8 @@ class CampaignEmail extends EmailElement
      */
     public $defaultBody;
 
+    public $contentCheck;
+
     /**
      * @return string
      */
@@ -162,7 +164,7 @@ class CampaignEmail extends EmailElement
     public function getCpEditUrl()
     {
         return UrlHelper::cpUrl(
-            'sprout-email/campaigns/edit/'.$this->id
+            'sprout-campaign/edit/'.$this->id
         );
     }
 
@@ -350,7 +352,7 @@ class CampaignEmail extends EmailElement
         if ($attribute === 'send') {
             $mailer = $campaignType->getMailer();
 
-            return Craft::$app->getView()->renderTemplate('sprout-base-email/_components/elementindex/CampaignEmail/prepare-link', [
+            return Craft::$app->getView()->renderTemplate('sprout-campaign/_components/elementindex/campaignemail/prepare-link', [
                 'campaignEmail' => $this,
                 'campaignType' => $campaignType,
                 'mailer' => $mailer
@@ -358,7 +360,7 @@ class CampaignEmail extends EmailElement
         }
 
         if ($attribute === 'preview') {
-            return Craft::$app->getView()->renderTemplate('sprout-base-email/_components/elementindex/CampaignEmail/preview-links', [
+            return Craft::$app->getView()->renderTemplate('sprout-campaign/_components/elementindex/campaignemail/preview-links', [
                 'email' => $this,
                 'campaignType' => $campaignType,
                 'type' => 'html'
@@ -414,9 +416,14 @@ class CampaignEmail extends EmailElement
 
         $this->setEventObject($params);
 
-        $htmlBody = $this->getEmailTemplates()->getHtmlBody();
+        try {
+            $htmlBody = $this->getEmailTemplates()->getHtmlBody();
 
-        return !($htmlBody == null);
+            return !($htmlBody == null);
+        } catch (\Exception $e) {
+
+            return false;
+        }
     }
 
     /**
@@ -427,7 +434,7 @@ class CampaignEmail extends EmailElement
     {
         $rules = parent::rules();
 
-        $rules[] = [['subjectLine', 'fromName', 'fromEmail', 'replyToEmail'], 'required'];
+        $rules[] = [['fromName', 'fromEmail', 'replyToEmail'], 'required'];
         $rules[] = ['replyToEmail', 'validateEmailWithOptionalPlaceholder'];
         $rules[] = ['fromEmail', 'validateEmailWithOptionalPlaceholder'];
         $rules[] = ['recipients', 'validateOnTheFlyRecipients'];
@@ -596,7 +603,10 @@ class CampaignEmail extends EmailElement
     }
 
     /**
-     * @return array|bool|mixed
+     * @return bool|mixed
+     * @throws Exception
+     * @throws \Twig_Error_Loader
+     * @throws \yii\base\ExitException
      */
     protected function route()
     {
@@ -605,31 +615,19 @@ class CampaignEmail extends EmailElement
         if (!$campaignType) {
             return false;
         }
-
-        $extension = null;
-
+        $emailTemplates = $this->getEmailTemplates();
+        $html = $emailTemplates->getHtmlBody();
         if ($type = Craft::$app->getRequest()->getParam('type')) {
-            $extension = in_array(strtolower($type), ['txt', 'text'], false) ? '.txt' : null;
+            $html = $emailTemplates->getTextBody();
         }
+        
+        // Output it into a buffer, in case TasksService wants to close the connection prematurely
+        ob_start();
 
-        if (!Craft::$app->getView()->doesTemplateExist($campaignType->template.$extension)) {
-            $templateName = $campaignType->template.$extension;
+        echo $html;
 
-            SproutCampaign::error(Craft::t('sprout-campaign', "The template '{templateName}' could not be found", [
-                'templateName' => $templateName
-            ]));
-        }
-
-        return [
-            'templates/render', [
-                'template' => $campaignType->template.$extension,
-                'variables' => [
-                    'email' => $this,
-                    'entry' => $this,
-                    'campaignType' => $campaignType,
-                ]
-            ]
-        ];
+        // End the request
+        Craft::$app->end();
     }
 
     /**

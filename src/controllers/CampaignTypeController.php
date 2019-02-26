@@ -123,14 +123,14 @@ class CampaignTypeController extends Controller
         $session = Craft::$app->getSession();
 
         if ($session AND $result = sproutcampaign::$app->campaignTypes->deleteCampaignType($campaignTypeId)) {
-            $session->setNotice(Craft::t('sprout-email', 'Campaign Type deleted.'));
+            $session->setNotice(Craft::t('sprout-campaign', 'Campaign Type deleted.'));
 
             return $this->asJson([
                 'success' => true
             ]);
         }
 
-        $session->setError(Craft::t('sprout-email', "Couldn't delete Campaign."));
+        $session->setError(Craft::t('sprout-campaign', "Couldn't delete Campaign."));
 
         return $this->asJson([
             'success' => false
