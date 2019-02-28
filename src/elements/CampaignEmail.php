@@ -499,14 +499,15 @@ class CampaignEmail extends EmailElement
         $mailer = $this->getMailer();
 
         if ($mailer AND $mailer->hasLists()) {
+
             $listSettings = Json::decode($this->listSettings);
 
-            if (empty($listSettings->listIds)) {
-                return false;
+            if (is_array($listSettings['listIds']) && count($listSettings['listIds']) > 0) {
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -620,7 +621,7 @@ class CampaignEmail extends EmailElement
         if ($type = Craft::$app->getRequest()->getParam('type')) {
             $html = $emailTemplates->getTextBody();
         }
-        
+
         // Output it into a buffer, in case TasksService wants to close the connection prematurely
         ob_start();
 

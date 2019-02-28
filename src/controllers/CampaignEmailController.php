@@ -234,7 +234,7 @@ class CampaignEmailController extends Controller
             $campaignType = SproutCampaign::$app->campaignTypes->getCampaignTypeById($campaignEmail->campaignTypeId);
         }
 
-        $html = Craft::$app->getView()->renderTemplate('sprout-base-email/_modals/campaigns/prepare-test-email', [
+        $html = Craft::$app->getView()->renderTemplate('sprout-campaign/_modals/campaigns/prepare-test-email', [
             'campaignEmail' => $campaignEmail,
             'campaignType' => $campaignType
         ]);
@@ -267,7 +267,7 @@ class CampaignEmailController extends Controller
             $campaignType = SproutCampaign::$app->campaignTypes->getCampaignTypeById($campaignEmail->campaignTypeId);
         }
 
-        $html = Craft::$app->getView()->renderTemplate('sprout-base-email/_modals/campaigns/prepare-scheduled-email', [
+        $html = Craft::$app->getView()->renderTemplate('sprout-campaign/_modals/campaigns/prepare-scheduled-email', [
             'campaignEmail' => $campaignEmail,
             'campaignType' => $campaignType
         ]);
@@ -378,7 +378,7 @@ class CampaignEmailController extends Controller
                 return $this->asJson(
                     ModalResponse::createErrorModalResponse('sprout-base-email/_modals/response', [
                         'email' => $campaignEmail,
-                        'message' => Craft::t('sprout-campaign', 'Unable to send Test Notification Email')
+                        'message' => Craft::t('sprout-campaign', 'Unable to send Test Campaign Email')
                     ])
                 );
             }
