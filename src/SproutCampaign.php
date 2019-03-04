@@ -8,19 +8,21 @@
  * @copyright Copyright (c) 2017 Barrelstrength
  */
 
-namespace barrelstrength\sproutcampaign;
+namespace barrelstrength\sproutcampaigns;
 
 use barrelstrength\sproutbase\base\BaseSproutTrait;
 use barrelstrength\sproutbaseemail\events\RegisterMailersEvent;
 use barrelstrength\sproutbaseemail\SproutBaseEmailHelper;
-use barrelstrength\sproutcampaign\mailers\CopyPasteMailer;
-use barrelstrength\sproutcampaign\models\Settings;
-use barrelstrength\sproutcampaign\services\App;
+use barrelstrength\sproutcampaigns\mailers\CopyPasteMailer;
+use barrelstrength\sproutcampaigns\models\Settings;
+use barrelstrength\sproutcampaigns\services\App;
 use barrelstrength\sproutbaseemail\services\Mailers;
 use Craft;
 use craft\base\Plugin;
 use craft\events\RegisterUrlRulesEvent;
 use barrelstrength\sproutbase\SproutBaseHelper;
+use craft\events\RegisterUserPermissionsEvent;
+use craft\services\UserPermissions;
 use craft\web\UrlManager;
 use yii\base\Event;
 
@@ -42,7 +44,7 @@ class SproutCampaign extends Plugin
     /**
      * Enable use of SproutCampaign::$plugin-> in place of Craft::$app->
      *
-     * @var \barrelstrength\sproutcampaign\services\App
+     * @var \barrelstrength\sproutcampaigns\services\App
      */
     public static $app;
 
@@ -71,6 +73,20 @@ class SproutCampaign extends Plugin
      */
     public $minVersionRequired = '1.0.0';
 
+    const EDITION_LITE = 'lite';
+    const EDITION_PRO = 'pro';
+
+    /**
+     * @inheritdoc
+     */
+    public static function editions(): array
+    {
+        return [
+            self::EDITION_LITE,
+            self::EDITION_PRO,
+        ];
+    }
+
     /**
      * @throws \yii\base\InvalidConfigException
      */
@@ -87,10 +103,14 @@ class SproutCampaign extends Plugin
 
         self::$app = $this->get('app');
 
-        Craft::setAlias('@sproutcampaign', $this->getBasePath());
+        Craft::setAlias('@sproutcampaigns', $this->getBasePath());
 
         Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_CP_URL_RULES, function(RegisterUrlRulesEvent $event) {
             $event->rules = array_merge($event->rules, $this->getCpUrlRules());
+        });
+
+        Event::on(UserPermissions::class, UserPermissions::EVENT_REGISTER_PERMISSIONS, function(RegisterUserPermissionsEvent $event) {
+            $event->permissions['Sprout Campaigns'] = $this->getUserPermissions();
         });
 
         Event::on(Mailers::class, Mailers::EVENT_REGISTER_MAILER_TYPES, function(RegisterMailersEvent $event) {
@@ -164,6 +184,23 @@ class SproutCampaign extends Plugin
 
             'sprout-campaign/settings' =>
                 'sprout/settings/edit-settings'
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getUserPermissions(): array
+    {
+        return [
+            'sproutCampaigns-editCampaigns' => [
+                'label' => Craft::t('sprout-campaigns', 'Edit Campaigns'),
+                'nested' => [
+                    'sproutCampaigns-sendCampaigns' => [
+                        'label' => Craft::t('sprout-campaigns', 'Send Campaigns')
+                    ]
+                ]
+            ],
         ];
     }
 }
