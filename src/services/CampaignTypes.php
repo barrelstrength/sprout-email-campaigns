@@ -1,10 +1,10 @@
 <?php
 
-namespace barrelstrength\sproutcampaign\services;
+namespace barrelstrength\sproutcampaigns\services;
 
-use barrelstrength\sproutcampaign\elements\CampaignEmail;
-use barrelstrength\sproutcampaign\models\CampaignType;
-use barrelstrength\sproutcampaign\records\CampaignType as CampaignTypeRecord;
+use barrelstrength\sproutcampaigns\elements\CampaignEmail;
+use barrelstrength\sproutcampaigns\models\CampaignType;
+use barrelstrength\sproutcampaigns\records\CampaignType as CampaignTypeRecord;
 use craft\base\Component;
 use Craft;
 use craft\queue\jobs\ResaveElements;
@@ -13,7 +13,7 @@ use yii\base\Exception;
 /**
  * Class CampaignTypes
  *
- * @package barrelstrength\sproutcampaign\services
+ * @package barrelstrength\sproutcampaigns\services
  *
  * @property array $campaignTypes
  */

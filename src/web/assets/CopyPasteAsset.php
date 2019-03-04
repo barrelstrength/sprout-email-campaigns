@@ -1,6 +1,6 @@
 <?php
 
-namespace barrelstrength\sproutcampaign\web\assets;
+namespace barrelstrength\sproutcampaigns\web\assets;
 
 use craft\web\AssetBundle;
 use craft\web\assets\cp\CpAsset;

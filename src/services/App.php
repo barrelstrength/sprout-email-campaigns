@@ -1,6 +1,6 @@
 <?php
 
-namespace barrelstrength\sproutcampaign\services;
+namespace barrelstrength\sproutcampaigns\services;
 
 use craft\base\Component;
 

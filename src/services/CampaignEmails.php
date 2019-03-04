@@ -1,11 +1,11 @@
 <?php
 
-namespace barrelstrength\sproutcampaign\services;
+namespace barrelstrength\sproutcampaigns\services;
 
-use barrelstrength\sproutcampaign\base\CampaignEmailSenderInterface;
+use barrelstrength\sproutcampaigns\base\CampaignEmailSenderInterface;
 use barrelstrength\sproutbaseemail\base\Mailer;
-use barrelstrength\sproutcampaign\elements\CampaignEmail;
-use barrelstrength\sproutcampaign\records\CampaignEmail as CampaignEmailRecord;
+use barrelstrength\sproutcampaigns\elements\CampaignEmail;
+use barrelstrength\sproutcampaigns\records\CampaignEmail as CampaignEmailRecord;
 use craft\base\Component;
 use Craft;
 use craft\helpers\DateTimeHelper;
@@ -14,7 +14,7 @@ use yii\base\Exception;
 /**
  * Class CampaignEmails
  *
- * @package barrelstrength\sproutcampaign\services
+ * @package barrelstrength\sproutcampaigns\services
  */
 class CampaignEmails extends Component
 {

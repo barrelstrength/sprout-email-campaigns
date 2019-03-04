@@ -5,7 +5,7 @@
  * @license   http://sprout.barrelstrengthdesign.com/license
  */
 
-namespace barrelstrength\sproutcampaign\migrations;
+namespace barrelstrength\sproutcampaigns\migrations;
 
 use craft\db\Migration;
 

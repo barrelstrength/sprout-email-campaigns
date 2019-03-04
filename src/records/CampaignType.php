@@ -1,6 +1,6 @@
 <?php
 
-namespace barrelstrength\sproutcampaign\records;
+namespace barrelstrength\sproutcampaigns\records;
 
 use craft\db\ActiveRecord;
 use craft\records\FieldLayout;

@@ -1,6 +1,6 @@
 <?php
 
-namespace barrelstrength\sproutcampaign\models;
+namespace barrelstrength\sproutcampaigns\models;
 
 use barrelstrength\sproutbase\base\SproutSettingsInterface;
 use Craft;

@@ -1,7 +1,7 @@
 {
-  "name": "barrelstrength/sprout-campaign",
+  "name": "barrelstrength/sprout-campaigns",
   "description": "Libraries for Sprout Campaign Plugin for Craft CMS",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.1",
   "type": "craft-plugin",
   "keywords": [
     "craft",
@@ -33,7 +33,7 @@
   },
   "autoload": {
     "psr-4": {
-      "barrelstrength\\sproutcampaign\\": "src/"
+      "barrelstrength\\sproutcampaigns\\": "src/"
     }
   },
   "extra": {
@@ -44,6 +44,6 @@
     "documentationUrl": "https://sprout.barrelstrengthdesign.com/craft-plugins/campaign",
     "changelogUrl": "https://raw.githubusercontent.com/BarrelStrength/sprout-campaign/master/CHANGELOG.md",
     "downloadUrl": "https://github.com/BarrelStrength/sprout-campaign/archive/master.zip",
-    "class": "barrelstrength\\sproutcampaign\\SproutCampaign"
+    "class": "barrelstrength\\sproutcampaigns\\SproutCampaign"
   }
 }

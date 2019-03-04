@@ -1,6 +1,6 @@
 <?php
 
-namespace barrelstrength\sproutcampaign\elements\db;
+namespace barrelstrength\sproutcampaigns\elements\db;
 
 use craft\elements\db\ElementQuery;
 use craft\helpers\Db;

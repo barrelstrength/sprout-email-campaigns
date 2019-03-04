@@ -1,9 +1,9 @@
 <?php
 
-namespace barrelstrength\sproutcampaign\controllers;
+namespace barrelstrength\sproutcampaigns\controllers;
 
-use barrelstrength\sproutcampaign\elements\CampaignEmail;
-use barrelstrength\sproutcampaign\SproutCampaign;
+use barrelstrength\sproutcampaigns\elements\CampaignEmail;
+use barrelstrength\sproutcampaigns\SproutCampaign;
 use craft\helpers\DateTimeHelper;
 use craft\web\Controller;
 use Craft;

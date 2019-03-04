@@ -5,9 +5,9 @@
  * @license   http://sprout.barrelstrengthdesign.com/license
  */
 
-namespace barrelstrength\sproutcampaign\base;
+namespace barrelstrength\sproutcampaigns\base;
 
-use barrelstrength\sproutcampaign\elements\CampaignEmail;
+use barrelstrength\sproutcampaigns\elements\CampaignEmail;
 
 interface CampaignEmailSenderInterface
 {

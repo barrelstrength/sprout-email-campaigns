@@ -1,18 +1,18 @@
 <?php
 
-namespace barrelstrength\sproutcampaign\models;
+namespace barrelstrength\sproutcampaigns\models;
 
 use barrelstrength\sproutbaseemail\base\Mailer;
 use barrelstrength\sproutbaseemail\base\SenderTrait;
 use barrelstrength\sproutbaseemail\SproutBaseEmail;
-use barrelstrength\sproutcampaign\elements\CampaignEmail;
+use barrelstrength\sproutcampaigns\elements\CampaignEmail;
 use craft\base\Field;
 use craft\base\Model;
 use craft\behaviors\FieldLayoutBehavior;
 use craft\models\FieldLayout;
 use craft\records\FieldLayoutField;
 use craft\validators\UniqueValidator;
-use barrelstrength\sproutcampaign\records\CampaignType as CampaignTypeRecord;
+use barrelstrength\sproutcampaigns\records\CampaignType as CampaignTypeRecord;
 
 /**
  * Class CampaignTypeModel

@@ -1,12 +1,12 @@
 <?php
 
-namespace barrelstrength\sproutcampaign\mailers;
+namespace barrelstrength\sproutcampaigns\mailers;
 
 use barrelstrength\sproutbaseemail\base\EmailElement;
 use barrelstrength\sproutbaseemail\base\Mailer;
-use barrelstrength\sproutcampaign\base\CampaignEmailSenderInterface;
-use barrelstrength\sproutcampaign\web\assets\CopyPasteAsset;
-use barrelstrength\sproutcampaign\elements\CampaignEmail;
+use barrelstrength\sproutcampaigns\base\CampaignEmailSenderInterface;
+use barrelstrength\sproutcampaigns\web\assets\CopyPasteAsset;
+use barrelstrength\sproutcampaigns\elements\CampaignEmail;
 use barrelstrength\sproutbaseemail\models\ModalResponse;
 use Craft;
 

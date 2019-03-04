@@ -1,16 +1,16 @@
 <?php
 
-namespace barrelstrength\sproutcampaign\elements;
+namespace barrelstrength\sproutcampaigns\elements;
 
 use barrelstrength\sproutbaseemail\base\EmailElement;
 use barrelstrength\sproutbaseemail\base\Mailer;
 use barrelstrength\sproutbaseemail\mailers\DefaultMailer;
 use barrelstrength\sproutbaseemail\SproutBaseEmail;
 use barrelstrength\sproutbaseemail\web\assets\email\EmailAsset;
-use barrelstrength\sproutcampaign\elements\db\CampaignEmailQuery;
-use barrelstrength\sproutcampaign\records\CampaignEmail as CampaignEmailRecord;
-use barrelstrength\sproutcampaign\models\CampaignType;
-use barrelstrength\sproutcampaign\SproutCampaign;
+use barrelstrength\sproutcampaigns\elements\db\CampaignEmailQuery;
+use barrelstrength\sproutcampaigns\records\CampaignEmail as CampaignEmailRecord;
+use barrelstrength\sproutcampaigns\models\CampaignType;
+use barrelstrength\sproutcampaigns\SproutCampaign;
 use Craft;
 use craft\base\Element;
 use craft\elements\actions\Delete;
@@ -23,7 +23,7 @@ use yii\base\Exception;
 /**
  * Class CampaignEmail
  *
- * @property \barrelstrength\sproutcampaign\models\CampaignType                                                             $campaignType
+ * @property \barrelstrength\sproutcampaigns\models\CampaignType                                                             $campaignType
  * @property mixed                                                                                                       $emailTemplateId
  * @property \barrelstrength\sproutbaseemail\mailers\DefaultMailer|\barrelstrength\sproutbaseemail\base\Mailer $mailer
  */

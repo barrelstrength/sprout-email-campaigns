@@ -1,6 +1,6 @@
 {% extends "sprout-base-email/_layouts/elementindex" %}
 {% set title = "Campaign Email"|t('sprout-campaign') %}
-{% set elementType = 'barrelstrength\\sproutcampaign\\elements\\CampaignEmail' %}
+{% set elementType = 'barrelstrength\\sproutcampaigns\\elements\\CampaignEmail' %}
 
 {% block actionButton %}
     {% set campaignTypes = craft.sproutEmail.getCampaignTypes() %}

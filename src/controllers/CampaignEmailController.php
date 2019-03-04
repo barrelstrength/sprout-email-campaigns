@@ -1,15 +1,15 @@
 <?php
 
-namespace barrelstrength\sproutcampaign\controllers;
+namespace barrelstrength\sproutcampaigns\controllers;
 
-use barrelstrength\sproutcampaign\base\CampaignEmailSenderInterface;
+use barrelstrength\sproutcampaigns\base\CampaignEmailSenderInterface;
 use barrelstrength\sproutbaseemail\base\Mailer;
 use barrelstrength\sproutbaseemail\mailers\DefaultMailer;
 use barrelstrength\sproutbaseemail\SproutBaseEmail;
-use barrelstrength\sproutcampaign\elements\CampaignEmail;
+use barrelstrength\sproutcampaigns\elements\CampaignEmail;
 use barrelstrength\sproutbaseemail\models\ModalResponse;
-use barrelstrength\sproutcampaign\models\CampaignType;
-use barrelstrength\sproutcampaign\SproutCampaign;
+use barrelstrength\sproutcampaigns\models\CampaignType;
+use barrelstrength\sproutcampaigns\SproutCampaign;
 use craft\base\ElementInterface;
 use craft\helpers\ElementHelper;
 use craft\helpers\UrlHelper;
