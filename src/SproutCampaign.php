@@ -194,10 +194,10 @@ class SproutCampaign extends Plugin
     {
         return [
             'sproutCampaigns-editCampaigns' => [
-                'label' => Craft::t('sprout-campaigns', 'Edit Campaigns'),
+                'label' => Craft::t('sprout-campaign', 'Edit Campaigns'),
                 'nested' => [
                     'sproutCampaigns-sendCampaigns' => [
-                        'label' => Craft::t('sprout-campaigns', 'Send Campaigns')
+                        'label' => Craft::t('sprout-campaign', 'Send Campaigns')
                     ]
                 ]
             ],
