@@ -9,20 +9,20 @@ use yii\db\ActiveQueryInterface;
 /**
  * Class CampaignTypeRecord
  *
- * @property int                          $id
- * @property string                       $name
- * @property string                       $handle
- * @property string                       $type
- * @property string                       $mailer
- * @property string                       $emailTemplateId
- * @property string                       $titleFormat
- * @property string                       $urlFormat
- * @property bool                         $hasUrls
- * @property bool                         $hasAdvancedTitles
- * @property string                       $template
- * @property string                       $templateCopyPaste
- * @property \yii\db\ActiveQueryInterface $fieldLayout
- * @property int                          $fieldLayoutId
+ * @property int                  $id
+ * @property string               $name
+ * @property string               $handle
+ * @property string               $type
+ * @property string               $mailer
+ * @property string               $emailTemplateId
+ * @property string               $titleFormat
+ * @property string               $urlFormat
+ * @property bool                 $hasUrls
+ * @property bool                 $hasAdvancedTitles
+ * @property string               $template
+ * @property string               $templateCopyPaste
+ * @property ActiveQueryInterface $fieldLayout
+ * @property int                  $fieldLayoutId
  */
 class CampaignType extends ActiveRecord
 {
@@ -62,13 +62,7 @@ class CampaignType extends ActiveRecord
      */
     public function rules(): array
     {
-        $rules = [
-            // required fields
-            [
-                'name',
-                'required'
-            ]
-        ];
+        $rules = [['name', 'required']];
 
         return array_merge($rules, $this->rules);
     }

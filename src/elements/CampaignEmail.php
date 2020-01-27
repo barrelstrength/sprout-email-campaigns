@@ -18,14 +18,18 @@ use craft\elements\db\ElementQueryInterface;
 use craft\helpers\DateTimeHelper;
 use craft\helpers\Json;
 use craft\helpers\UrlHelper;
+use DateTime;
+use Twig_Error_Loader;
 use yii\base\Exception;
+use yii\base\ExitException;
+use yii\base\InvalidConfigException;
 
 /**
  * Class CampaignEmail
  *
- * @property \barrelstrength\sproutcampaigns\models\CampaignType                                                             $campaignType
- * @property mixed                                                                                                       $emailTemplateId
- * @property \barrelstrength\sproutbaseemail\mailers\DefaultMailer|\barrelstrength\sproutbaseemail\base\Mailer $mailer
+ * @property CampaignType         $campaignType
+ * @property mixed                $emailTemplateId
+ * @property DefaultMailer|Mailer $mailer
  */
 class CampaignEmail extends EmailElement
 {
@@ -64,12 +68,12 @@ class CampaignEmail extends EmailElement
     public $preview;
 
     /**
-     * @var $dateScheduled \DateTime
+     * @var $dateScheduled DateTime
      */
     public $dateScheduled;
 
     /**
-     * @var $dateSent \DateTime
+     * @var $dateSent DateTime
      */
     public $dateSent;
 
@@ -95,6 +99,14 @@ class CampaignEmail extends EmailElement
     public static function displayName(): string
     {
         return Craft::t('sprout-campaign', 'Campaign Email');
+    }
+
+    /**
+     * @return string
+     */
+    public static function pluralDisplayName(): string
+    {
+        return Craft::t('sprout-campaign', 'Campaign Emails');
     }
 
     /**
@@ -320,7 +332,7 @@ class CampaignEmail extends EmailElement
      * @param bool                  $showCheckboxes
      *
      * @return string
-     * @throws \yii\base\InvalidConfigException
+     * @throws InvalidConfigException
      */
     public static function indexHtml(ElementQueryInterface $elementQuery, /** @noinspection PhpOptionalBeforeRequiredParametersInspection */ array $disabledElementIds = null, array $viewState, /** @noinspection PhpOptionalBeforeRequiredParametersInspection */ string $sourceKey = null, /** @noinspection PhpOptionalBeforeRequiredParametersInspection */ string $context = null, bool $includeContainer, bool $showCheckboxes): string
     {
@@ -328,7 +340,7 @@ class CampaignEmail extends EmailElement
             $showCheckboxes);
 
         Craft::$app->getView()->registerAssetBundle(EmailAsset::class);
-        Craft::$app->getView()->registerJs('var sproutModalInstance = new SproutModal(); sproutModalInstance.init();');
+        Craft::$app->getView()->registerJs('new SproutModal();');
         SproutBaseEmail::$app->mailers->includeMailerModalResources();
 
         return $html;
@@ -338,9 +350,9 @@ class CampaignEmail extends EmailElement
      * @param string $attribute
      *
      * @return string
-     * @throws \Twig_Error_Loader
-     * @throws \yii\base\Exception
-     * @throws \yii\base\InvalidConfigException
+     * @throws Twig_Error_Loader
+     * @throws Exception
+     * @throws InvalidConfigException
      */
     public function getTableAttributeHtml(string $attribute): string
     {
@@ -397,7 +409,7 @@ class CampaignEmail extends EmailElement
     /**
      * @return bool
      * @throws Exception
-     * @throws \Twig_Error_Loader
+     * @throws Twig_Error_Loader
      */
     public function isContentReady(): bool
     {
@@ -428,11 +440,11 @@ class CampaignEmail extends EmailElement
 
     /**
      * @return array
-     * @throws \yii\base\InvalidConfigException
+     * @throws InvalidConfigException
      */
-    public function rules(): array
+    protected function defineRules(): array
     {
-        $rules = parent::rules();
+        $rules = parent::defineRules();
 
         $rules[] = [['fromName', 'fromEmail', 'replyToEmail'], 'required'];
         $rules[] = ['replyToEmail', 'validateEmailWithOptionalPlaceholder'];
@@ -584,7 +596,7 @@ class CampaignEmail extends EmailElement
      *
      * @return bool
      * @throws Exception
-     * @throws \Twig_Error_Loader
+     * @throws Twig_Error_Loader
      */
     public function isReadyToSend(): bool
     {
@@ -596,7 +608,7 @@ class CampaignEmail extends EmailElement
      *
      * @return bool
      * @throws Exception
-     * @throws \Twig_Error_Loader
+     * @throws Twig_Error_Loader
      */
     public function isReadyToTest(): bool
     {
@@ -606,8 +618,8 @@ class CampaignEmail extends EmailElement
     /**
      * @return bool|mixed
      * @throws Exception
-     * @throws \Twig_Error_Loader
-     * @throws \yii\base\ExitException
+     * @throws Twig_Error_Loader
+     * @throws ExitException
      */
     protected function route()
     {

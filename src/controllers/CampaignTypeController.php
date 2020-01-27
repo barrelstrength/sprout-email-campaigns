@@ -42,7 +42,7 @@ class CampaignTypeController extends Controller
 
         $mailerOptions = [];
 
-        $mailers = SproutBaseEmail::$app->mailers->getMailers();
+        $mailers = SproutBaseEmail::$app->mailers->getRegisteredMailers();
 
         if (!empty($mailers)) {
             foreach ($mailers as $key => $mailer) {

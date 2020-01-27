@@ -21,18 +21,18 @@ use barrelstrength\sproutcampaigns\records\CampaignType as CampaignTypeRecord;
  * @package Craft
  * --
  * @property int                       $id
- * @property string                    $name
- * @property string                    $handle
- * @property string                    $mailer
- * @property string                    $titleFormat
- * @property string                    $urlFormat
- * @property bool                      $hasUrls
- * @property bool                      $hasAdvancedTitles
- * @property string                    $template
- * @property string                    $templateCopyPaste
- * @property int                       $fieldLayoutId
- * @property \craft\models\FieldLayout $fieldLayout
- * @property int                       $emailId
+ * @property string      $name
+ * @property string      $handle
+ * @property string      $mailer
+ * @property string      $titleFormat
+ * @property string      $urlFormat
+ * @property bool        $hasUrls
+ * @property bool        $hasAdvancedTitles
+ * @property string      $template
+ * @property string      $templateCopyPaste
+ * @property int         $fieldLayoutId
+ * @property FieldLayout $fieldLayout
+ * @property int         $emailId
  */
 class CampaignType extends Model
 {
@@ -100,14 +100,16 @@ class CampaignType extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function defineRules(): array
     {
-        return [
-            [['id'], 'number', 'integerOnly' => true],
-            [['name', 'handle'], UniqueValidator::class, 'targetClass' => CampaignTypeRecord::class],
-            [['name', 'handle'], 'required'],
-            [['name', 'handle'], 'string', 'max' => 255],
-        ];
+        $rules = parent::defineRules();
+
+        $rules[] = [['id'], 'number', 'integerOnly' => true];
+        $rules[] = [['name', 'handle'], UniqueValidator::class, 'targetClass' => CampaignTypeRecord::class];
+        $rules[] = [['name', 'handle'], 'required'];
+        $rules[] = [['name', 'handle'], 'string', 'max' => 255];
+
+        return $rules;
     }
 
     /**
