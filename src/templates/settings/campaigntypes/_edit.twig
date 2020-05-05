@@ -22,14 +22,14 @@
 {% block actionButton %}
     <div class="btngroup submit first">
         <input type="submit" class="btn submit"
-               value="{{ 'Save Campaign'|t('sprout-campaign') }}"/>
+            value="{{ 'Save Campaign'|t('sprout-campaign') }}"/>
     </div>
 {% endblock %}
 
 {% set content %}
 
     <input type="hidden" name="action"
-           value="sprout-campaign/campaign-type/save-campaign-type">
+        value="sprout-campaign/campaign-type/save-campaign-type">
     {{ redirectInput("sprout-campaign/settings/campaigntypes") }}
     <input type="hidden" name="campaignTypeId" value="{{ campaignTypeId }}">
 
@@ -103,7 +103,7 @@
         }) }}
 
         <div id="url-settings"
-             class="nested-fields{% if not campaignType.hasUrls %} hidden{% endif %}">
+            class="nested-fields{% if not campaignType.hasUrls %} hidden{% endif %}">
 
             {{ forms.textField({
                 label: "Email URL Format"|t('sprout-campaign'),
@@ -128,7 +128,7 @@
         }) }}
 
         <div id="advancedtitle-settings"
-             class="nested-fields{% if not campaignType.hasAdvancedTitles %} hidden{% endif %}">
+            class="nested-fields{% if not campaignType.hasAdvancedTitles %} hidden{% endif %}">
 
             {{ forms.textField({
                 label: 'Subject Format'|t('sprout-campaign'),

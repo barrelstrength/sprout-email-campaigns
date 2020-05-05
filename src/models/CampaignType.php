@@ -6,13 +6,15 @@ use barrelstrength\sproutbaseemail\base\Mailer;
 use barrelstrength\sproutbaseemail\base\SenderTrait;
 use barrelstrength\sproutbaseemail\SproutBaseEmail;
 use barrelstrength\sproutcampaigns\elements\CampaignEmail;
+use barrelstrength\sproutcampaigns\records\CampaignType as CampaignTypeRecord;
 use craft\base\Field;
 use craft\base\Model;
 use craft\behaviors\FieldLayoutBehavior;
 use craft\models\FieldLayout;
 use craft\records\FieldLayoutField;
 use craft\validators\UniqueValidator;
-use barrelstrength\sproutcampaigns\records\CampaignType as CampaignTypeRecord;
+use yii\base\Exception;
+use yii\base\InvalidConfigException;
 
 /**
  * Class CampaignTypeModel
@@ -20,7 +22,7 @@ use barrelstrength\sproutcampaigns\records\CampaignType as CampaignTypeRecord;
  * @mixin FieldLayoutBehavior
  * @package Craft
  * --
- * @property int                       $id
+ * @property int         $id
  * @property string      $name
  * @property string      $handle
  * @property string      $mailer
@@ -42,56 +44,69 @@ class CampaignType extends Model
      * @var
      */
     public $saveAsNew;
+
     /**
      * @var
      */
     public $id;
+
     /**
      * @var
      */
     public $name;
+
     /**
      * @var
      */
     public $handle;
+
     /**
      * @var
      */
     public $mailer;
+
     /**
      * @var
      */
     public $titleFormat;
+
     /**
      * @var
      */
     public $urlFormat;
+
     /**
      * @var
      */
     public $hasUrls;
+
     /**
      * @var
      */
     public $hasAdvancedTitles;
+
     /**
      * @var
      */
     public $template;
+
     /**
      * @var
      */
     public $templateCopyPaste;
+
     /**
      * @var
      */
     public $fieldLayoutId;
+
     /**
      * @var
      */
     public $emailId;
 
     public $emailTemplateId;
+
     /**
      * @var
      */
@@ -127,7 +142,7 @@ class CampaignType extends Model
 
     /**
      * @return FieldLayout
-     * @throws \yii\base\InvalidConfigException
+     * @throws InvalidConfigException
      */
     public function getFieldLayout(): FieldLayout
     {
@@ -143,7 +158,7 @@ class CampaignType extends Model
      * Returns the fields associated with this form.
      *
      * @return Field[]
-     * @throws \yii\base\InvalidConfigException
+     * @throws InvalidConfigException
      */
     public function getFields(): array
     {
@@ -181,7 +196,7 @@ class CampaignType extends Model
 
     /**
      * @return Mailer
-     * @throws \yii\base\Exception
+     * @throws Exception
      */
     public function getMailer(): Mailer
     {

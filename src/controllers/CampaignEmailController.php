@@ -2,22 +2,27 @@
 
 namespace barrelstrength\sproutcampaigns\controllers;
 
-use barrelstrength\sproutcampaigns\base\CampaignEmailSenderInterface;
 use barrelstrength\sproutbaseemail\base\Mailer;
 use barrelstrength\sproutbaseemail\mailers\DefaultMailer;
-use barrelstrength\sproutbaseemail\SproutBaseEmail;
-use barrelstrength\sproutcampaigns\elements\CampaignEmail;
 use barrelstrength\sproutbaseemail\models\ModalResponse;
+use barrelstrength\sproutbaseemail\SproutBaseEmail;
+use barrelstrength\sproutcampaigns\base\CampaignEmailSenderInterface;
+use barrelstrength\sproutcampaigns\elements\CampaignEmail;
 use barrelstrength\sproutcampaigns\models\CampaignType;
 use barrelstrength\sproutcampaigns\SproutCampaign;
+use Craft;
 use craft\base\ElementInterface;
 use craft\helpers\ElementHelper;
 use craft\helpers\UrlHelper;
 use craft\web\assets\cp\CpAsset;
 use craft\web\Controller;
-use Craft;
+use Throwable;
+use Twig_Error_Loader;
 use yii\base\Exception;
+use yii\base\ExitException;
 use yii\base\InvalidArgumentException;
+use yii\base\InvalidConfigException;
+use yii\web\BadRequestHttpException;
 use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -96,10 +101,10 @@ class CampaignEmailController extends Controller
     /**
      * Saves a Campaign Email
      *
-     * @return null|\yii\web\Response
+     * @return null|Response
      * @throws Exception
-     * @throws \Throwable
-     * @throws \yii\web\BadRequestHttpException
+     * @throws Throwable
+     * @throws BadRequestHttpException
      */
     public function actionSaveCampaignEmail()
     {
@@ -128,7 +133,7 @@ class CampaignEmailController extends Controller
 
         $session = Craft::$app->getSession();
 
-        if ($session AND SproutCampaign::$app->campaignEmails->saveCampaignEmail($campaignEmail)) {
+        if ($session and SproutCampaign::$app->campaignEmails->saveCampaignEmail($campaignEmail)) {
             $session->setNotice(Craft::t('sprout-campaign', 'Campaign Email saved.'));
         } else {
             $session->setError(Craft::t('sprout-campaign', 'Could not save Campaign Email.'));
@@ -147,9 +152,9 @@ class CampaignEmailController extends Controller
      * Sends a Campaign Email
      *
      * @return Response
-     * @throws \yii\base\Exception
-     * @throws \yii\web\BadRequestHttpException
-     * @throws \Twig_Error_Loader
+     * @throws Exception
+     * @throws BadRequestHttpException
+     * @throws Twig_Error_Loader
      */
     public function actionSendCampaignEmail(): Response
     {
@@ -208,9 +213,9 @@ class CampaignEmailController extends Controller
      * Renders the Send Test Campaign Email Modal
      *
      * @return Response
-     * @throws \Twig_Error_Loader
-     * @throws \yii\base\Exception
-     * @throws \yii\web\BadRequestHttpException
+     * @throws Twig_Error_Loader
+     * @throws Exception
+     * @throws BadRequestHttpException
      */
     public function actionPrepareTestCampaignEmailModal(): Response
     {
@@ -240,9 +245,9 @@ class CampaignEmailController extends Controller
      * Renders the Schedule Campaign Email Modal
      *
      * @return Response
-     * @throws \Twig_Error_Loader
-     * @throws \yii\base\Exception
-     * @throws \yii\web\BadRequestHttpException
+     * @throws Twig_Error_Loader
+     * @throws Exception
+     * @throws BadRequestHttpException
      */
     public function actionPrepareScheduleCampaignEmail(): Response
     {
@@ -277,9 +282,9 @@ class CampaignEmailController extends Controller
      *
      * @throws Exception
      * @throws HttpException
-     * @throws \Twig_Error_Loader
-     * @throws \yii\base\ExitException
-     * @throws \yii\web\BadRequestHttpException
+     * @throws Twig_Error_Loader
+     * @throws ExitException
+     * @throws BadRequestHttpException
      */
     public function actionViewSharedCampaignEmail($emailId = null, $type = null)
     {
@@ -315,12 +320,12 @@ class CampaignEmailController extends Controller
      *
      * Test Emails do not trigger an onSendEmail event and do not get marked as Sent.
      *
+     * @return Response
+     * @throws Exception
+     * @throws Throwable
+     * @throws BadRequestHttpException
      * @todo - update to use getIsTest() syntax
      *
-     * @return \yii\web\Response
-     * @throws Exception
-     * @throws \Throwable
-     * @throws \yii\web\BadRequestHttpException
      */
     public function actionSendTestCampaignEmail()
     {
@@ -433,7 +438,7 @@ class CampaignEmailController extends Controller
      * @param null $emailId
      *
      * @return Response
-     * @throws \yii\base\InvalidConfigException
+     * @throws InvalidConfigException
      */
     public function actionPreviewCampaignEmail($emailType = null, $emailId = null): Response
     {

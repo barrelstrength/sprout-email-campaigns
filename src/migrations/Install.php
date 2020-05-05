@@ -9,7 +9,6 @@ namespace barrelstrength\sproutcampaigns\migrations;
 
 use barrelstrength\sproutbase\base\SproutDependencyInterface;
 use barrelstrength\sproutbase\migrations\Install as SproutBaseInstall;
-use barrelstrength\sproutbaseemail\migrations\Install as SproutBaseEmailInstall;
 use barrelstrength\sproutbasefields\migrations\Install as SproutBaseFieldsInstall;
 use barrelstrength\sproutbasesentemail\migrations\Install as SproutBaseSentEmailInstall;
 use barrelstrength\sproutcampaigns\elements\CampaignEmail;

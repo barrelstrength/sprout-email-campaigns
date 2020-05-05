@@ -2,14 +2,16 @@
 
 namespace barrelstrength\sproutcampaigns\services;
 
-use barrelstrength\sproutcampaigns\base\CampaignEmailSenderInterface;
 use barrelstrength\sproutbaseemail\base\Mailer;
+use barrelstrength\sproutcampaigns\base\CampaignEmailSenderInterface;
 use barrelstrength\sproutcampaigns\elements\CampaignEmail;
 use barrelstrength\sproutcampaigns\records\CampaignEmail as CampaignEmailRecord;
-use craft\base\Component;
 use Craft;
+use craft\base\Component;
 use craft\helpers\DateTimeHelper;
+use Throwable;
 use yii\base\Exception;
+use yii\base\ExitException;
 
 /**
  * Class CampaignEmails
@@ -27,8 +29,8 @@ class CampaignEmails extends Component
      *
      * @return CampaignEmail|bool
      * @throws \Exception
-     * @throws \Throwable
-     * @throws \yii\base\Exception
+     * @throws Throwable
+     * @throws Exception
      */
     public function saveCampaignEmail(CampaignEmail $campaignEmail)
     {
@@ -140,7 +142,7 @@ class CampaignEmails extends Component
      * @param        $body
      * @param string $fileExtension
      *
-     * @throws \yii\base\ExitException
+     * @throws ExitException
      */
     public function showCampaignEmail($htmlBody, $body, $fileExtension = 'html')
     {

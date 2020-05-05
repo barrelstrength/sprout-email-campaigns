@@ -8,10 +8,14 @@ use barrelstrength\sproutbaseemail\SproutBaseEmail;
 use barrelstrength\sproutcampaigns\elements\CampaignEmail;
 use barrelstrength\sproutcampaigns\models\CampaignType;
 use barrelstrength\sproutcampaigns\SproutCampaign;
+use Craft;
+use craft\errors\MissingComponentException;
+use craft\errors\SiteNotFoundException;
 use craft\helpers\UrlHelper;
 use craft\web\Controller;
-use Craft;
 use yii\base\InvalidArgumentException;
+use yii\db\Exception;
+use yii\web\BadRequestHttpException;
 use yii\web\Response;
 
 class CampaignTypeController extends Controller
@@ -69,10 +73,10 @@ class CampaignTypeController extends Controller
      * Saves a Campaign Type
      *
      * @throws \Exception
-     * @throws \craft\errors\SiteNotFoundException
+     * @throws SiteNotFoundException
      * @throws \yii\base\Exception
-     * @throws \yii\db\Exception
-     * @throws \yii\web\BadRequestHttpException
+     * @throws Exception
+     * @throws BadRequestHttpException
      */
     public function actionSaveCampaignType(): Response
     {
@@ -111,8 +115,8 @@ class CampaignTypeController extends Controller
      * Deletes a Campaign Type
      *
      * @return Response
-     * @throws \craft\errors\MissingComponentException
-     * @throws \yii\web\BadRequestHttpException
+     * @throws MissingComponentException
+     * @throws BadRequestHttpException
      */
     public function actionDeleteCampaignType(): Response
     {
@@ -122,7 +126,7 @@ class CampaignTypeController extends Controller
 
         $session = Craft::$app->getSession();
 
-        if ($session AND $result = sproutcampaign::$app->campaignTypes->deleteCampaignType($campaignTypeId)) {
+        if ($session and $result = sproutcampaign::$app->campaignTypes->deleteCampaignType($campaignTypeId)) {
             $session->setNotice(Craft::t('sprout-campaign', 'Campaign Type deleted.'));
 
             return $this->asJson([

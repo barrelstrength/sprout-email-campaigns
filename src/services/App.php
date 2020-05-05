@@ -10,6 +10,7 @@ class App extends Component
      * @var CampaignEmails
      */
     public $campaignEmails;
+
     /**
      * @var CampaignTypes
      */

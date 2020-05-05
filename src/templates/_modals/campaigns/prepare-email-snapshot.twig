@@ -47,8 +47,8 @@
                     <a href="{{ cpUrl('sprout-campaign/campaigns/edit/' ~ email.id) }}">{{ "Edit"|t('sprout-campaign') }}</a>
                     or
                     <a href="{{ emailUrl }}" title="{{ email.title }}"
-                       data-preview-url="{{ emailUrl }}"
-                       class="email-preview">{{ "Preview"|t('sprout-campaign') }}</a>
+                        data-preview-url="{{ emailUrl }}"
+                        class="email-preview">{{ "Preview"|t('sprout-campaign') }}</a>
                 </td>
             </tr>
             <tr>
@@ -57,9 +57,9 @@
                 </td>
                 <td>
                     <a href="{{ emailUrl ~ '?type=text' }}"
-                       title="{{ email.title }}"
-                       data-preview-url="{{ emailUrl ~ '?type=text' }}"
-                       class="email-preview">{{ "Preview"|t('sprout-campaign') }}</a>
+                        title="{{ email.title }}"
+                        data-preview-url="{{ emailUrl ~ '?type=text' }}"
+                        class="email-preview">{{ "Preview"|t('sprout-campaign') }}</a>
                 </td>
             </tr>
 
@@ -104,15 +104,15 @@
 
     <div class="buttons right">
         <button {% if not email.isReadyToTest() %}disabled{% endif %}
-                data-action="sprout-campaign/campaign-email/prepare-test-campaign-email-modal"
-                data-email-id="{{ email.id }}"
-                class="btn actions {% if not email.isReadyToTest() %}disabled{% endif %}">
+            data-action="sprout-campaign/campaign-email/prepare-test-campaign-email-modal"
+            data-email-id="{{ email.id }}"
+            class="btn actions {% if not email.isReadyToTest() %}disabled{% endif %}">
             {{ "Send Test"|t('sprout-campaign') }}
         </button>
         <button {% if not email.isReadyToSend() %}disabled{% endif %}
-                data-action="sprout-campaign/campaign-email/prepare-schedule-campaign-email"
-                data-email-id="{{ email.id }}"
-                class="btn submit actions {% if not email.isReadyToSend() %}disabled{% endif %}">
+            data-action="sprout-campaign/campaign-email/prepare-schedule-campaign-email"
+            data-email-id="{{ email.id }}"
+            class="btn submit actions {% if not email.isReadyToSend() %}disabled{% endif %}">
             {{ "Schedule Campaign"|t('sprout-campaign') }}
         </button>
     </div>

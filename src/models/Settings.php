@@ -26,6 +26,7 @@ class Settings extends Model implements SproutSettingsInterface
      * @var null
      */
     public $emailTemplateId;
+
     /**
      * @var int
      */

@@ -5,8 +5,9 @@ namespace barrelstrength\sproutcampaigns\services;
 use barrelstrength\sproutcampaigns\elements\CampaignEmail;
 use barrelstrength\sproutcampaigns\models\CampaignType;
 use barrelstrength\sproutcampaigns\records\CampaignType as CampaignTypeRecord;
-use craft\base\Component;
 use Craft;
+use craft\base\Component;
+use craft\errors\SiteNotFoundException;
 use craft\queue\jobs\ResaveElements;
 use yii\base\Exception;
 
@@ -61,8 +62,8 @@ class CampaignTypes extends Component
      *
      * @return CampaignType|bool
      * @throws \Exception
-     * @throws \craft\errors\SiteNotFoundException
-     * @throws \yii\base\Exception
+     * @throws SiteNotFoundException
+     * @throws Exception
      * @throws \yii\db\Exception
      */
     public function saveCampaignType(CampaignType $campaignType)
@@ -144,6 +145,31 @@ class CampaignTypes extends Component
     }
 
     /**
+     * Deletes a campaign by its ID along with associations;
+     * also cleans up any remaining orphans
+     *
+     * @param int $campaignTypeId
+     *
+     * @return bool
+     */
+    public function deleteCampaignType($campaignTypeId)
+    {
+        try {
+            Craft::$app->getDb()->createCommand()
+                ->delete(
+                    'sproutemail_campaigntypes',
+                    [
+                        'id' => $campaignTypeId
+                    ])
+                ->execute();
+
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    /**
      * @param CampaignType       $campaignType
      * @param CampaignTypeRecord $campaignTypeRecord
      *
@@ -198,30 +224,5 @@ class CampaignTypes extends Component
         }
 
         return $campaignTypeRecord;
-    }
-
-    /**
-     * Deletes a campaign by its ID along with associations;
-     * also cleans up any remaining orphans
-     *
-     * @param int $campaignTypeId
-     *
-     * @return bool
-     */
-    public function deleteCampaignType($campaignTypeId)
-    {
-        try {
-            Craft::$app->getDb()->createCommand()
-                ->delete(
-                    'sproutemail_campaigntypes',
-                    [
-                        'id' => $campaignTypeId
-                    ])
-                ->execute();
-
-            return true;
-        } catch (\Exception $e) {
-            return false;
-        }
     }
 }

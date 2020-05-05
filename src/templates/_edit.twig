@@ -16,35 +16,35 @@
     <section class="buttons">
         <div class="btngroup submit">
             <input type="submit" class="btn submit"
-                   value="{{ 'Save'|t('sprout-campaign') }}">
+                value="{{ 'Save'|t('sprout-campaign') }}">
 
             <div class="btn submit menubtn"></div>
             <div class="menu">
                 <ul>
                     {% if emailId %}
                         <li><a class="formsubmit"
-                               data-redirect="{{ "sprout-campaign/edit/{id}"|hash }}">
+                                data-redirect="{{ "sprout-campaign/edit/{id}"|hash }}">
                                 {{ "Save and continue editing"|t('sprout-campaign') }}
                                 <span class="shortcut">⌘S</span></a></li>
                         <li><a class="formsubmit" data-param='saveAsNew'
-                               data-value="true"
-                               data-redirect="{{ " sprout-campaign/edit/{id}"|hash }}">{{ "Save as a new email"|t('sprout-campaign') }}</a>
+                                data-value="true"
+                                data-redirect="{{ " sprout-campaign/edit/{id}"|hash }}">{{ "Save as a new email"|t('sprout-campaign') }}</a>
                         </li>
                     {% endif %}
 
                     {% set addAnotherUrl="sprout-campaign/" ~ campaignType.id ~ "/new" %}
 
                     <li><a class="formsubmit"
-                           data-redirect="{{ addAnotherUrl|hash }}">
+                            data-redirect="{{ addAnotherUrl|hash }}">
                             {{ "Save and add another"|t('sprout-campaign') }}</a>
                     </li>
                     {% if campaignEmail.id is not null %}
                         <hr>
                         <ul>
                             <li><a class="formsubmit error"
-                                   data-action="sprout-campaign/campaign-email/delete-campaign-email"
-                                   data-confirm="{{ 'Are you sure you want to delete this email?'|t('sprout-campaign') }}"
-                                   data-redirect="{{ "sprout-campaign"|hash }}">{{ "Delete"|t('sprout-campaign') }}</a>
+                                    data-action="sprout-campaign/campaign-email/delete-campaign-email"
+                                    data-confirm="{{ 'Are you sure you want to delete this email?'|t('sprout-campaign') }}"
+                                    data-redirect="{{ "sprout-campaign"|hash }}">{{ "Delete"|t('sprout-campaign') }}</a>
                             </li>
                         </ul>
                     {% endif %}
@@ -58,7 +58,7 @@
 {% block content %}
 
     <input type="hidden" name="action"
-           value="sprout-campaign/campaign-email/save-campaign-email">
+        value="sprout-campaign/campaign-email/save-campaign-email">
     {{ redirectInput("sprout-campaign") }}
 
     {% if emailId %}

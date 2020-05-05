@@ -4,9 +4,13 @@ namespace barrelstrength\sproutcampaigns\controllers;
 
 use barrelstrength\sproutcampaigns\elements\CampaignEmail;
 use barrelstrength\sproutcampaigns\SproutCampaign;
+use Craft;
 use craft\helpers\DateTimeHelper;
 use craft\web\Controller;
-use Craft;
+use Throwable;
+use Twig_Error_Loader;
+use yii\base\Exception;
+use yii\web\BadRequestHttpException;
 use yii\web\Response;
 
 class CopyPasteController extends Controller
@@ -16,10 +20,10 @@ class CopyPasteController extends Controller
      *
      * @return Response
      * @throws \Exception
-     * @throws \Throwable
-     * @throws \Twig_Error_Loader
-     * @throws \yii\base\Exception
-     * @throws \yii\web\BadRequestHttpException
+     * @throws Throwable
+     * @throws Twig_Error_Loader
+     * @throws Exception
+     * @throws BadRequestHttpException
      */
     public function actionMarkSent(): Response
     {

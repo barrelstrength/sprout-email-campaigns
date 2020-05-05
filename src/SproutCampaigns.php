@@ -12,16 +12,16 @@ namespace barrelstrength\sproutcampaigns;
 
 use barrelstrength\sproutbase\base\SproutDependencyInterface;
 use barrelstrength\sproutbase\base\SproutDependencyTrait;
+use barrelstrength\sproutbase\SproutBaseHelper;
 use barrelstrength\sproutbaseemail\events\RegisterMailersEvent;
+use barrelstrength\sproutbaseemail\services\Mailers;
 use barrelstrength\sproutbaseemail\SproutBaseEmailHelper;
 use barrelstrength\sproutcampaigns\mailers\CopyPasteMailer;
 use barrelstrength\sproutcampaigns\models\Settings;
 use barrelstrength\sproutcampaigns\services\App;
-use barrelstrength\sproutbaseemail\services\Mailers;
 use Craft;
 use craft\base\Plugin;
 use craft\events\RegisterUrlRulesEvent;
-use barrelstrength\sproutbase\SproutBaseHelper;
 use craft\events\RegisterUserPermissionsEvent;
 use craft\services\UserPermissions;
 use craft\web\UrlManager;
@@ -42,6 +42,10 @@ use yii\base\InvalidConfigException;
 class SproutCampaigns extends Plugin implements SproutDependencyInterface
 {
     use SproutDependencyTrait;
+
+    const EDITION_LITE = 'lite';
+
+    const EDITION_PRO = 'pro';
 
     /**
      * Enable use of SproutCampaign::$plugin-> in place of Craft::$app->
@@ -69,9 +73,6 @@ class SproutCampaigns extends Plugin implements SproutDependencyInterface
      * @var string
      */
     public $minVersionRequired = '1.0.0';
-
-    const EDITION_LITE = 'lite';
-    const EDITION_PRO = 'pro';
 
     /**
      * @inheritdoc
@@ -116,14 +117,6 @@ class SproutCampaigns extends Plugin implements SproutDependencyInterface
     }
 
     /**
-     * @return Settings
-     */
-    protected function createSettingsModel(): Settings
-    {
-        return new Settings();
-    }
-
-    /**
      * @return array
      */
     public function getCpNavItem(): array
@@ -151,36 +144,6 @@ class SproutCampaigns extends Plugin implements SproutDependencyInterface
         ];
 
         return array_merge($parent, $navigation);
-    }
-
-    private function getCpUrlRules(): array
-    {
-        return [
-            // Campaigns
-            'sprout-campaign/preview/<emailType:campaign|notification|sent>/<emailId:\d+>' => [
-                'template' => 'sprout-base-email/_special/preview'
-            ],
-            'sprout-campaign/<campaignTypeId:\d+>/<emailId:new>' =>
-                'sprout-campaign/campaign-email/edit-campaign-email',
-
-            'sprout-campaign/edit/<emailId:\d+>' =>
-                'sprout-campaign/campaign-email/edit-campaign-email',
-
-            'sprout-campaign' => [
-                'template' => 'sprout-campaign/index'
-            ],
-
-            // Settings
-            'sprout-campaign/settings/campaigntypes/edit/<campaignTypeId:\d+|new>' =>
-                'sprout-campaign/campaign-type/campaign-settings',
-
-
-            'sprout-campaign/settings/<settingsSectionHandle:.*>' =>
-                'sprout/settings/edit-settings',
-
-            'sprout-campaign/settings' =>
-                'sprout/settings/edit-settings'
-        ];
     }
 
     /**
@@ -213,6 +176,44 @@ class SproutCampaigns extends Plugin implements SproutDependencyInterface
 
             // Has dependency but relies on Sprout Reports Pro to install reports tables
             SproutDependencyInterface::SPROUT_BASE_REPORTS
+        ];
+    }
+
+    /**
+     * @return Settings
+     */
+    protected function createSettingsModel(): Settings
+    {
+        return new Settings();
+    }
+
+    private function getCpUrlRules(): array
+    {
+        return [
+            // Campaigns
+            'sprout-campaign/preview/<emailType:campaign|notification|sent>/<emailId:\d+>' => [
+                'template' => 'sprout-base-email/_special/preview'
+            ],
+            'sprout-campaign/<campaignTypeId:\d+>/<emailId:new>' =>
+                'sprout-campaign/campaign-email/edit-campaign-email',
+
+            'sprout-campaign/edit/<emailId:\d+>' =>
+                'sprout-campaign/campaign-email/edit-campaign-email',
+
+            'sprout-campaign' => [
+                'template' => 'sprout-campaign/index'
+            ],
+
+            // Settings
+            'sprout-campaign/settings/campaigntypes/edit/<campaignTypeId:\d+|new>' =>
+                'sprout-campaign/campaign-type/campaign-settings',
+
+
+            'sprout-campaign/settings/<settingsSectionHandle:.*>' =>
+                'sprout/settings/edit-settings',
+
+            'sprout-campaign/settings' =>
+                'sprout/settings/edit-settings'
         ];
     }
 }

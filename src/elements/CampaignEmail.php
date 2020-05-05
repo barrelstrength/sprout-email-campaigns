@@ -8,8 +8,8 @@ use barrelstrength\sproutbaseemail\mailers\DefaultMailer;
 use barrelstrength\sproutbaseemail\SproutBaseEmail;
 use barrelstrength\sproutbaseemail\web\assets\email\EmailAsset;
 use barrelstrength\sproutcampaigns\elements\db\CampaignEmailQuery;
-use barrelstrength\sproutcampaigns\records\CampaignEmail as CampaignEmailRecord;
 use barrelstrength\sproutcampaigns\models\CampaignType;
+use barrelstrength\sproutcampaigns\records\CampaignEmail as CampaignEmailRecord;
 use barrelstrength\sproutcampaigns\SproutCampaign;
 use Craft;
 use craft\base\Element;
@@ -171,21 +171,35 @@ class CampaignEmail extends EmailElement
     }
 
     /**
-     * @inheritdoc
-     */
-    public function getCpEditUrl()
-    {
-        return UrlHelper::cpUrl(
-            'sprout-campaign/edit/'.$this->id
-        );
-    }
-
-    /**
      * @return ElementQueryInterface
      */
     public static function find(): ElementQueryInterface
     {
         return new CampaignEmailQuery(static::class);
+    }
+
+    /**
+     * @param ElementQueryInterface $elementQuery
+     * @param array|null            $disabledElementIds
+     * @param array                 $viewState
+     * @param string|null           $sourceKey
+     * @param string|null           $context
+     * @param bool                  $includeContainer
+     * @param bool                  $showCheckboxes
+     *
+     * @return string
+     * @throws InvalidConfigException
+     */
+    public static function indexHtml(ElementQueryInterface $elementQuery, /** @noinspection PhpOptionalBeforeRequiredParametersInspection */ array $disabledElementIds = null, array $viewState, /** @noinspection PhpOptionalBeforeRequiredParametersInspection */ string $sourceKey = null, /** @noinspection PhpOptionalBeforeRequiredParametersInspection */ string $context = null, bool $includeContainer, bool $showCheckboxes): string
+    {
+        $html = parent::indexHtml($elementQuery, $disabledElementIds, $viewState, $sourceKey, $context, $includeContainer,
+            $showCheckboxes);
+
+        Craft::$app->getView()->registerAssetBundle(EmailAsset::class);
+        Craft::$app->getView()->registerJs('new SproutModal();');
+        SproutBaseEmail::$app->mailers->includeMailerModalResources();
+
+        return $html;
     }
 
     /**
@@ -271,6 +285,16 @@ class CampaignEmail extends EmailElement
     /**
      * @inheritdoc
      */
+    public function getCpEditUrl()
+    {
+        return UrlHelper::cpUrl(
+            'sprout-campaign/edit/'.$this->id
+        );
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function beforeSave(bool $isNew): bool
     {
         $campaignTypeId = $this->campaignTypeId;
@@ -320,30 +344,6 @@ class CampaignEmail extends EmailElement
         Craft::$app->getElements()->updateElementSlugAndUri($this, true, true);
 
         parent::afterSave($isNew);
-    }
-
-    /**
-     * @param ElementQueryInterface $elementQuery
-     * @param array|null            $disabledElementIds
-     * @param array                 $viewState
-     * @param string|null           $sourceKey
-     * @param string|null           $context
-     * @param bool                  $includeContainer
-     * @param bool                  $showCheckboxes
-     *
-     * @return string
-     * @throws InvalidConfigException
-     */
-    public static function indexHtml(ElementQueryInterface $elementQuery, /** @noinspection PhpOptionalBeforeRequiredParametersInspection */ array $disabledElementIds = null, array $viewState, /** @noinspection PhpOptionalBeforeRequiredParametersInspection */ string $sourceKey = null, /** @noinspection PhpOptionalBeforeRequiredParametersInspection */ string $context = null, bool $includeContainer, bool $showCheckboxes): string
-    {
-        $html = parent::indexHtml($elementQuery, $disabledElementIds, $viewState, $sourceKey, $context, $includeContainer,
-            $showCheckboxes);
-
-        Craft::$app->getView()->registerAssetBundle(EmailAsset::class);
-        Craft::$app->getView()->registerJs('new SproutModal();');
-        SproutBaseEmail::$app->mailers->includeMailerModalResources();
-
-        return $html;
     }
 
     /**
@@ -439,23 +439,6 @@ class CampaignEmail extends EmailElement
     }
 
     /**
-     * @return array
-     * @throws InvalidConfigException
-     */
-    protected function defineRules(): array
-    {
-        $rules = parent::defineRules();
-
-        $rules[] = [['fromName', 'fromEmail', 'replyToEmail'], 'required'];
-        $rules[] = ['replyToEmail', 'validateEmailWithOptionalPlaceholder'];
-        $rules[] = ['fromEmail', 'validateEmailWithOptionalPlaceholder'];
-        $rules[] = ['recipients', 'validateOnTheFlyRecipients'];
-
-        return $rules;
-    }
-
-
-    /**
      * Ensures that $attribute is a valid email address or a placeholder to be parsed later
      *
      * @param $attribute
@@ -510,7 +493,7 @@ class CampaignEmail extends EmailElement
          */
         $mailer = $this->getMailer();
 
-        if ($mailer AND $mailer->hasLists()) {
+        if ($mailer and $mailer->hasLists()) {
 
             $listSettings = Json::decode($this->listSettings);
 
@@ -616,6 +599,45 @@ class CampaignEmail extends EmailElement
     }
 
     /**
+     * @inheritdoc
+     */
+    public function getEmailTemplateId(): string
+    {
+        return $this->getCampaignType()->emailTemplateId;
+    }
+
+    public function defaultFromName()
+    {
+        return Craft::$app->getSystemSettings()->getEmailSettings()->fromName;
+    }
+
+    public function defaultFromEmail()
+    {
+        return Craft::$app->getSystemSettings()->getEmailSettings()->fromEmail;
+    }
+
+    public function defaultReplyToEmail(): string
+    {
+        return '';
+    }
+
+    /**
+     * @return array
+     * @throws InvalidConfigException
+     */
+    protected function defineRules(): array
+    {
+        $rules = parent::defineRules();
+
+        $rules[] = [['fromName', 'fromEmail', 'replyToEmail'], 'required'];
+        $rules[] = ['replyToEmail', 'validateEmailWithOptionalPlaceholder'];
+        $rules[] = ['fromEmail', 'validateEmailWithOptionalPlaceholder'];
+        $rules[] = ['recipients', 'validateOnTheFlyRecipients'];
+
+        return $rules;
+    }
+
+    /**
      * @return bool|mixed
      * @throws Exception
      * @throws Twig_Error_Loader
@@ -641,28 +663,5 @@ class CampaignEmail extends EmailElement
 
         // End the request
         Craft::$app->end();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getEmailTemplateId(): string
-    {
-        return $this->getCampaignType()->emailTemplateId;
-    }
-
-    public function defaultFromName()
-    {
-        return Craft::$app->getSystemSettings()->getEmailSettings()->fromName;
-    }
-
-    public function defaultFromEmail()
-    {
-        return Craft::$app->getSystemSettings()->getEmailSettings()->fromEmail;
-    }
-
-    public function defaultReplyToEmail(): string
-    {
-        return '';
     }
 }

@@ -4,11 +4,14 @@ namespace barrelstrength\sproutcampaigns\mailers;
 
 use barrelstrength\sproutbaseemail\base\EmailElement;
 use barrelstrength\sproutbaseemail\base\Mailer;
-use barrelstrength\sproutcampaigns\base\CampaignEmailSenderInterface;
-use barrelstrength\sproutcampaigns\web\assets\CopyPasteAsset;
-use barrelstrength\sproutcampaigns\elements\CampaignEmail;
 use barrelstrength\sproutbaseemail\models\ModalResponse;
+use barrelstrength\sproutcampaigns\base\CampaignEmailSenderInterface;
+use barrelstrength\sproutcampaigns\elements\CampaignEmail;
+use barrelstrength\sproutcampaigns\web\assets\CopyPasteAsset;
 use Craft;
+use Exception;
+use Throwable;
+use yii\base\InvalidConfigException;
 
 /**
  *
@@ -77,7 +80,7 @@ class CopyPasteMailer extends Mailer implements CampaignEmailSenderInterface
     /**
      * Gives mailers the ability to include their own modal resources and register their dynamic action handlers
      *
-     * @throws \yii\base\InvalidConfigException
+     * @throws InvalidConfigException
      */
     public function includeModalResources()
     {
@@ -88,7 +91,7 @@ class CopyPasteMailer extends Mailer implements CampaignEmailSenderInterface
      * @param CampaignEmail $campaignEmail
      *
      * @return ModalResponse|mixed|null
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function sendCampaignEmail(CampaignEmail $campaignEmail)
     {
@@ -104,7 +107,7 @@ class CopyPasteMailer extends Mailer implements CampaignEmailSenderInterface
                 ]);
 
             return $response;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw $e;
         }
     }
