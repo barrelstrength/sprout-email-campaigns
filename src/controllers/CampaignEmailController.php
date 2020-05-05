@@ -177,39 +177,30 @@ class CampaignEmailController extends Controller
                 }
 
                 return $this->asJson(
-                    ModalResponse::createErrorModalResponse(
-                        'sprout-base-email/_modals/response',
-                        [
-                            'email' => $campaignEmail,
-                            'campaign' => $campaignType,
-                            'message' => Craft::t('sprout-campaign', $errorMessage),
-                        ]
-                    )
+                    ModalResponse::createErrorModalResponse('sprout-base-email/_modals/response', [
+                        'email' => $campaignEmail,
+                        'campaign' => $campaignType,
+                        'message' => Craft::t('sprout-campaign', $errorMessage),
+                    ])
                 );
             } catch (\Exception $e) {
 
                 return $this->asJson(
-                    ModalResponse::createErrorModalResponse(
-                        'sprout-base-email/_modals/response',
-                        [
-                            'email' => $campaignEmail,
-                            'campaign' => $campaignType,
-                            'message' => Craft::t('sprout-campaign', $e->getMessage()),
-                        ]
-                    )
+                    ModalResponse::createErrorModalResponse('sprout-base-email/_modals/response', [
+                        'email' => $campaignEmail,
+                        'campaign' => $campaignType,
+                        'message' => Craft::t('sprout-campaign', $e->getMessage()),
+                    ])
                 );
             }
         }
 
         return $this->asJson(
-            ModalResponse::createErrorModalResponse(
-                'sprout-base-email/_modals/response',
-                [
-                    'email' => $campaignEmail,
-                    'campaign' => $campaignType,
-                    'message' => Craft::t('sprout-campaign', 'The campaign email you are trying to send is missing.'),
-                ]
-            )
+            ModalResponse::createErrorModalResponse('sprout-base-email/_modals/response', [
+                'email' => $campaignEmail,
+                'campaign' => $campaignType,
+                'message' => Craft::t('sprout-campaign', 'The campaign email you are trying to send is missing.'),
+            ])
         );
     }
 
@@ -391,14 +382,11 @@ class CampaignEmailController extends Controller
             );
         } catch (\Exception $e) {
             return $this->asJson(
-                ModalResponse::createErrorModalResponse(
-                    'sprout-base-email/_modals/response',
-                    [
-                        'email' => $campaignEmail,
-                        'campaign' => $campaignEmail->getCampaignType(),
-                        'message' => Craft::t('sprout-campaign', $e->getMessage()),
-                    ]
-                )
+                ModalResponse::createErrorModalResponse('sprout-base-email/_modals/response', [
+                    'email' => $campaignEmail,
+                    'campaign' => $campaignEmail->getCampaignType(),
+                    'message' => Craft::t('sprout-campaign', $e->getMessage()),
+                ])
             );
         }
     }
