@@ -10,7 +10,6 @@
 
 namespace barrelstrength\sproutcampaigns;
 
-use barrelstrength\sproutbase\base\BaseSproutTrait;
 use barrelstrength\sproutbaseemail\events\RegisterMailersEvent;
 use barrelstrength\sproutbaseemail\SproutBaseEmailHelper;
 use barrelstrength\sproutcampaigns\mailers\CopyPasteMailer;
@@ -25,6 +24,7 @@ use craft\events\RegisterUserPermissionsEvent;
 use craft\services\UserPermissions;
 use craft\web\UrlManager;
 use yii\base\Event;
+use yii\base\InvalidConfigException;
 
 /**
  * Class SproutCampaign
@@ -33,25 +33,18 @@ use yii\base\Event;
  * @package   SproutEmail
  * @since     3
  *
- *
- * @property array $cpNavItem
- * @property array $cpUrlRules
+ * @property array         $cpNavItem
+ * @property array[]|array $userPermissions
+ * @property array         $cpUrlRules
  */
-class SproutCampaign extends Plugin
+class SproutCampaigns extends Plugin
 {
-    use BaseSproutTrait;
-
     /**
      * Enable use of SproutCampaign::$plugin-> in place of Craft::$app->
      *
-     * @var \barrelstrength\sproutcampaigns\services\App
+     * @var App
      */
     public static $app;
-
-    /**
-     * @var string
-     */
-    public static $pluginHandle = 'sprout-campaign';
 
     /**
      * @var bool
@@ -88,7 +81,7 @@ class SproutCampaign extends Plugin
     }
 
     /**
-     * @throws \yii\base\InvalidConfigException
+     * @throws InvalidConfigException
      */
     public function init()
     {
@@ -174,7 +167,6 @@ class SproutCampaign extends Plugin
             ],
 
             // Settings
-
             'sprout-campaign/settings/campaigntypes/edit/<campaignTypeId:\d+|new>' =>
                 'sprout-campaign/campaign-type/campaign-settings',
 

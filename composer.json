@@ -1,6 +1,6 @@
 {
   "name": "barrelstrength/sprout-campaigns",
-  "description": "Libraries for Sprout Campaign Plugin for Craft CMS",
+  "description": "Send Campaign Emails and integrate with third-party email marketing platforms",
   "version": "1.0.0-beta.1",
   "type": "craft-plugin",
   "keywords": [
@@ -25,11 +25,10 @@
     "rss": "https://github.com/barrelstrength/sprout-base/commits/v2.atom"
   },
   "require": {
-    "craftcms/cms": "^3.1.0",
-    "barrelstrength/sprout-base": "^5.0.0",
+    "craftcms/cms": "^3.4.0",
+    "barrelstrength/sprout-base": "^6.0.0",
     "barrelstrength/sprout-base-email": "^1.0.6",
-    "barrelstrength/sprout-base-fields": "^1.0.4",
-    "barrelstrength/sprout-lists": "^1.0.4"
+    "barrelstrength/sprout-base-fields": "^1.0.4"
   },
   "autoload": {
     "psr-4": {
@@ -44,6 +43,6 @@
     "documentationUrl": "https://sprout.barrelstrengthdesign.com/craft-plugins/campaign",
     "changelogUrl": "https://raw.githubusercontent.com/BarrelStrength/sprout-campaign/master/CHANGELOG.md",
     "downloadUrl": "https://github.com/BarrelStrength/sprout-campaign/archive/master.zip",
-    "class": "barrelstrength\\sproutcampaigns\\SproutCampaign"
+    "class": "barrelstrength\\sproutcampaigns\\SproutCampaigns"
   }
 }
