@@ -16,31 +16,12 @@ class Settings extends Model implements SproutSettingsInterface
      * @var string
      */
     public $pluginNameOverride = '';
-    /**
-     * @var bool
-     */
-    public $appendTitleValue = false;
-    /**
-     * @var string
-     */
-    public $localeIdOverride = '';
-    /**
-     * @var bool
-     */
-    public $displayFieldHandles = false;
 
     /**
      * @var bool
      */
-    public $enableNotificationEmails = true;
-    /**
-     * @var bool
-     */
     public $enableCampaignEmails = false;
-    /**
-     * @var bool
-     */
-    public $enableSentEmails = false;
+
     /**
      * @var null
      */
