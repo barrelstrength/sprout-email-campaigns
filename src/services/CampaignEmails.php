@@ -42,7 +42,7 @@ class CampaignEmails extends Component
             $campaignEmailRecord = CampaignEmailRecord::findOne($campaignEmail->id);
 
             if (!$campaignEmailRecord) {
-                throw new Exception(Craft::t('sprout-campaign', 'No entry exists with the ID “{id}”', ['id' => $campaignEmail->id]));
+                throw new Exception(Craft::t('sprout-campaigns', 'No entry exists with the ID “{id}”', ['id' => $campaignEmail->id]));
             }
         }
 
@@ -173,7 +173,7 @@ class CampaignEmails extends Component
         $mailer = $campaignEmail->getCampaignType()->getMailer();
 
         if (!$mailer) {
-            throw new Exception(Craft::t('sprout-campaign', 'No Mailer found.'));
+            throw new Exception(Craft::t('sprout-campaigns', 'No Mailer found.'));
         }
 
         /**
@@ -187,7 +187,7 @@ class CampaignEmails extends Component
                 $record = CampaignEmailRecord::findOne($campaignEmail->id);
 
                 if (!$record) {
-                    throw new Exception(Craft::t('sprout-campaign', 'No Campaign Email with id {id} was found.', [
+                    throw new Exception(Craft::t('sprout-campaigns', 'No Campaign Email with id {id} was found.', [
                         'id' => $campaignEmail->getCampaignType()->id
                     ]));
                 }

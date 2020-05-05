@@ -32,7 +32,7 @@ class CopyPasteMailer extends Mailer implements CampaignEmailSenderInterface
      */
     public function getDescription(): string
     {
-        return Craft::t('sprout-campaign', 'Copy and paste your email campaigns to better (or worse) places.');
+        return Craft::t('sprout-campaigns', 'Copy and paste your email campaigns to better (or worse) places.');
     }
 
     /**

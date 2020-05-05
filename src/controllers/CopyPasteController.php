@@ -40,7 +40,7 @@ class CopyPasteController extends Controller
             $html = Craft::$app->getView()->renderTemplate('sprout-base-email/_modals/response', [
                 'success' => true,
                 'email' => $campaignEmail,
-                'message' => Craft::t('sprout-campaign', 'Email marked as sent.')
+                'message' => Craft::t('sprout-campaigns', 'Email marked as sent.')
             ]);
 
             return $this->asJson([
@@ -52,7 +52,7 @@ class CopyPasteController extends Controller
         $html = Craft::$app->getView()->renderTemplate('sprout-base-email/_modals/response', [
             'success' => true,
             'email' => $campaignEmail,
-            'message' => Craft::t('sprout-campaign', 'Unable to mark email as sent.')
+            'message' => Craft::t('sprout-campaigns', 'Unable to mark email as sent.')
         ]);
 
         return $this->asJson([

@@ -39,19 +39,19 @@ class Settings extends Model implements SproutSettingsInterface
     {
         return [
             'settingsHeading' => [
-                'heading' => Craft::t('sprout-campaign', 'Settings'),
+                'heading' => Craft::t('sprout-campaigns', 'Settings'),
             ],
             'general' => [
-                'label' => Craft::t('sprout-campaign', 'General'),
+                'label' => Craft::t('sprout-campaigns', 'General'),
                 'url' => 'sprout-campaign/settings/general',
                 'selected' => 'general',
                 'template' => 'sprout-campaign/settings/general'
             ],
             'emailHeading' => [
-                'heading' => Craft::t('sprout-campaign', 'Email'),
+                'heading' => Craft::t('sprout-campaigns', 'Email'),
             ],
             'campaigntypes' => [
-                'label' => Craft::t('sprout-campaign', 'Campaigns'),
+                'label' => Craft::t('sprout-campaigns', 'Campaigns'),
                 'url' => 'sprout-campaign/settings/campaigntypes',
                 'selected' => 'campaigntypes',
                 'template' => 'sprout-campaign/settings/campaigntypes',

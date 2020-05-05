@@ -133,13 +133,13 @@ class SproutCampaigns extends Plugin implements SproutDependencyInterface
         $navigation = [];
 
         $navigation['subnav']['campaigns'] = [
-            'label' => Craft::t('sprout-campaign', 'Campaigns'),
+            'label' => Craft::t('sprout-campaigns', 'Campaigns'),
             'url' => 'sprout-campaign'
         ];
 
 
         $navigation['subnav']['settings'] = [
-            'label' => Craft::t('sprout-campaign', 'Settings'),
+            'label' => Craft::t('sprout-campaigns', 'Settings'),
             'url' => 'sprout-campaign/settings/general'
         ];
 
@@ -153,10 +153,10 @@ class SproutCampaigns extends Plugin implements SproutDependencyInterface
     {
         return [
             'sproutCampaigns-editCampaigns' => [
-                'label' => Craft::t('sprout-campaign', 'Edit Campaigns'),
+                'label' => Craft::t('sprout-campaigns', 'Edit Campaigns'),
                 'nested' => [
                     'sproutCampaigns-sendCampaigns' => [
-                        'label' => Craft::t('sprout-campaign', 'Send Campaigns')
+                        'label' => Craft::t('sprout-campaigns', 'Send Campaigns')
                     ]
                 ]
             ],

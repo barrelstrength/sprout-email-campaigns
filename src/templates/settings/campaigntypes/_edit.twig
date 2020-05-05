@@ -5,14 +5,14 @@
 {% set selectedSubnavItem = 'settings' %}
 
 {% if craft.app.request.getSegment(5) == 'new' %}
-    {% set title = "New Campaign Type"|t('sprout-campaign') %}
+    {% set title = "New Campaign Type"|t('sprout-campaigns') %}
 {% else %}
-    {% set title = "Edit Campaign Type"|t('sprout-campaign') %}
+    {% set title = "Edit Campaign Type"|t('sprout-campaigns') %}
 {% endif %}
 
 {% set crumbs = [
-    { label: "Settings"|t('sprout-campaign'), url: url('sprout-campaign/settings/general') },
-    { label: "Campaigns"|t('sprout-campaign'), url: url('sprout-campaign/settings/campaigntypes') }
+    { label: "Settings"|t('sprout-campaigns'), url: url('sprout-campaign/settings/general') },
+    { label: "Campaigns"|t('sprout-campaigns'), url: url('sprout-campaign/settings/campaigntypes') }
 ] %}
 
 {% set fullPageForm = true %}
@@ -22,7 +22,7 @@
 {% block actionButton %}
     <div class="btngroup submit first">
         <input type="submit" class="btn submit"
-            value="{{ 'Save Campaign'|t('sprout-campaign') }}"/>
+            value="{{ 'Save Campaign'|t('sprout-campaigns') }}"/>
     </div>
 {% endblock %}
 
@@ -36,10 +36,10 @@
     {% if mailers %}
 
         {{ forms.textField({
-            label: "Campaign Type Name"|t('sprout-campaign'),
+            label: "Campaign Type Name"|t('sprout-campaigns'),
             id: 'name',
             name: 'sproutCampaign[name]',
-            instructions: "Human readable name for this Campaign Type"|t('sprout-campaign'),
+            instructions: "Human readable name for this Campaign Type"|t('sprout-campaigns'),
             value: (campaignType is defined ? campaignType.name : null),
             autofocus: true,
             required: true,
@@ -48,17 +48,17 @@
         }) }}
 
         {{ forms.textField({
-            label: "Campaign Type Handle"|t('sprout-campaign'),
+            label: "Campaign Type Handle"|t('sprout-campaigns'),
             id: 'handle',
             name: 'sproutCampaign[handle]',
-            instructions: "How you'll refer to this Campaign Type in the templates."|t('sprout-campaign'),
+            instructions: "How you'll refer to this Campaign Type in the templates."|t('sprout-campaigns'),
             value: (campaignType is defined ? campaignType.handle : null),
             required: true,
             errors: (campaignType is defined ? campaignType.getErrors('handle') : null)
         }) }}
 
         {{ forms.selectField({
-            label: "Mailer"|t('sprout-campaign'),
+            label: "Mailer"|t('sprout-campaigns'),
             instructions: 'How you would like to send this email. Add a new Mailer via the Plugin Store or create your own.',
             id: 'mailer',
             name: 'sproutCampaign[mailer]',
@@ -71,14 +71,14 @@
         {% set templateOptions = craft.sproutEmail.getEmailTemplateOptions(campaignType) %}
 
         {{ forms.field({
-            label: "Email Templates"|t('sprout-campaign'),
-            instructions: "The Email Templates that will be used to display your email."|t('sprout-campaign'),
+            label: "Email Templates"|t('sprout-campaigns'),
+            instructions: "The Email Templates that will be used to display your email."|t('sprout-campaigns'),
             errors: campaignType is defined ? campaignType.getErrors('emailTemplateId') : null,
         }, sproutFields.selectOther({
             name: 'sproutCampaign[emailTemplateId]',
             options: templateOptions,
             value: campaignType is defined ? campaignType.emailTemplateId : null,
-            otherPlaceholderText: '_email/email-template-folder'|t('sprout-campaign')
+            otherPlaceholderText: '_email/email-template-folder'|t('sprout-campaigns')
         })) }}
 
         {# @todo - add support for copying a partial template #}
@@ -95,7 +95,7 @@
         <hr>
 
         {{ forms.checkboxField({
-            label: "Campaign Emails of this type have their own URLs"|t('sprout-campaign'),
+            label: "Campaign Emails of this type have their own URLs"|t('sprout-campaigns'),
             id: 'hasUrls',
             name: 'sproutCampaign[hasUrls]',
             checked: (campaignType is defined ? campaignType.hasUrls : 0),
@@ -106,8 +106,8 @@
             class="nested-fields{% if not campaignType.hasUrls %} hidden{% endif %}">
 
             {{ forms.textField({
-                label: "Email URL Format"|t('sprout-campaign'),
-                instructions: 'What the online version of the Campaign Email URLs should look like. You can include tags that output email properties, such as {slug} or {postDate|date("Y")}.'|t('sprout-campaign'),
+                label: "Email URL Format"|t('sprout-campaigns'),
+                instructions: 'What the online version of the Campaign Email URLs should look like. You can include tags that output email properties, such as {slug} or {postDate|date("Y")}.'|t('sprout-campaigns'),
                 placeholder: 'email/{slug}',
                 name: 'sproutCampaign[urlFormat]',
                 value: (campaignType is defined ? campaignType.urlFormat : null),
@@ -120,7 +120,7 @@
         <hr>
 
         {{ forms.checkboxField({
-            label: "Add a custom format to the Subject field?"|t('sprout-campaign'),
+            label: "Add a custom format to the Subject field?"|t('sprout-campaigns'),
             id: 'hasAdvancedTitles',
             name: 'sproutCampaign[hasAdvancedTitles]',
             checked: (campaignType is defined ? campaignType.hasAdvancedTitles : 0),
@@ -131,7 +131,7 @@
             class="nested-fields{% if not campaignType.hasAdvancedTitles %} hidden{% endif %}">
 
             {{ forms.textField({
-                label: 'Subject Format'|t('sprout-campaign'),
+                label: 'Subject Format'|t('sprout-campaigns'),
                 instructions: 'What the auto-generated email Subject should look like. You can include tags that output email properties, such as {code}.'|t({ code:
                     '<code>{myCustomField}</code>' }),
                 id: 'titleFormat',
@@ -151,14 +151,14 @@
 
     {% else %}
 
-        <h2>{{ "Setup your first Campaign Type."|t('sprout-campaign') }}</h2>
+        <h2>{{ "Setup your first Campaign Type."|t('sprout-campaigns') }}</h2>
 
         <p>Install and setup a Mailer Service to create your first Campaign
             Type. Mailers are available as
             separate plugins and can be downloaded from the links listed in the
             <a href="{{ url
                 ('sprout-campaign/settings/mailers') }}">{{ "Mailer
-        Settings"|t('sprout-campaign') }}</a>.</p>
+        Settings"|t('sprout-campaigns') }}</a>.</p>
 
     {% endif %}
 {% endset %}

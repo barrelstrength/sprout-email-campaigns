@@ -2,27 +2,27 @@
 
 <div class="body">
 
-    <h1>{{ 'Campaign Snapshot'|t('sprout-campaign') }}</h1>
+    <h1>{{ 'Campaign Snapshot'|t('sprout-campaigns') }}</h1>
 
     <table class="data fullwidth">
         <tbody>
         <tr style="background-color:#eee;font-size:14px;">
-            <th colspan="2">{{ 'Overview'|t('sprout-campaign') }}</th>
+            <th colspan="2">{{ 'Overview'|t('sprout-campaigns') }}</th>
         </tr>
         <tr>
-            <td><strong>{{ "Subject"|t('sprout-campaign') }}</strong></td>
+            <td><strong>{{ "Subject"|t('sprout-campaigns') }}</strong></td>
             <td>{{ email.title }}</td>
         </tr>
         <tr>
-            <td><strong>{{ "From Name"|t('sprout-campaign') }}</strong></td>
+            <td><strong>{{ "From Name"|t('sprout-campaigns') }}</strong></td>
             <td>{{ email.fromName }}</td>
         </tr>
         <tr>
-            <td><strong>{{ "From Email"|t('sprout-campaign') }}</strong></td>
+            <td><strong>{{ "From Email"|t('sprout-campaigns') }}</strong></td>
             <td>{{ email.fromEmail }}</td>
         </tr>
         <tr>
-            <td><strong>{{ "Reply To"|t('sprout-campaign') }}</strong></td>
+            <td><strong>{{ "Reply To"|t('sprout-campaigns') }}</strong></td>
             <td>{{ email.replyToEmail }}</td>
         </tr>
         </tbody>
@@ -35,31 +35,31 @@
         <tbody>
 
         <tr style="background-color:#eee;font-size:14px;">
-            <th colspan="2">{{ 'Content'|t('sprout-campaign') }}</th>
+            <th colspan="2">{{ 'Content'|t('sprout-campaigns') }}</th>
         </tr>
 
         {% if not email.getErrors('emailTemplateId') %}
             <tr>
                 <td>
-                    <strong>{{ "HTML"|t('sprout-campaign') }}</strong>
+                    <strong>{{ "HTML"|t('sprout-campaigns') }}</strong>
                 </td>
                 <td>
-                    <a href="{{ cpUrl('sprout-campaign/campaigns/edit/' ~ email.id) }}">{{ "Edit"|t('sprout-campaign') }}</a>
+                    <a href="{{ cpUrl('sprout-campaign/campaigns/edit/' ~ email.id) }}">{{ "Edit"|t('sprout-campaigns') }}</a>
                     or
                     <a href="{{ emailUrl }}" title="{{ email.title }}"
                         data-preview-url="{{ emailUrl }}"
-                        class="email-preview">{{ "Preview"|t('sprout-campaign') }}</a>
+                        class="email-preview">{{ "Preview"|t('sprout-campaigns') }}</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <strong>{{ "Text"|t('sprout-campaign') }}</strong>
+                    <strong>{{ "Text"|t('sprout-campaigns') }}</strong>
                 </td>
                 <td>
                     <a href="{{ emailUrl ~ '?type=text' }}"
                         title="{{ email.title }}"
                         data-preview-url="{{ emailUrl ~ '?type=text' }}"
-                        class="email-preview">{{ "Preview"|t('sprout-campaign') }}</a>
+                        class="email-preview">{{ "Preview"|t('sprout-campaigns') }}</a>
                 </td>
             </tr>
 
@@ -77,7 +77,7 @@
     <table class="data fullwidth">
         <tbody>
         <tr style="background-color:#eee;font-size:14px;">
-            <th colspan="2">{{ 'Recipients'|t('sprout-campaign') }}</th>
+            <th colspan="2">{{ 'Recipients'|t('sprout-campaigns') }}</th>
         </tr>
         <tr class="snapshot-recipients">
             {% if lists|length %}
@@ -90,8 +90,8 @@
                 {% endfor %}
             {% else %}
                 <td colspan="2">
-                    {{ "No recipients defined."|t('sprout-campaign') }} <a
-                        href="{{ cpUrl('sprout-campaign/campaigns/edit/' ~ email.id) }}">{{ "Add Recipients"|t('sprout-campaign') }}</a>
+                    {{ "No recipients defined."|t('sprout-campaigns') }} <a
+                        href="{{ cpUrl('sprout-campaign/campaigns/edit/' ~ email.id) }}">{{ "Add Recipients"|t('sprout-campaigns') }}</a>
                 </td>
             {% endif %}
         </tr>
@@ -107,17 +107,17 @@
             data-action="sprout-campaign/campaign-email/prepare-test-campaign-email-modal"
             data-email-id="{{ email.id }}"
             class="btn actions {% if not email.isReadyToTest() %}disabled{% endif %}">
-            {{ "Send Test"|t('sprout-campaign') }}
+            {{ "Send Test"|t('sprout-campaigns') }}
         </button>
         <button {% if not email.isReadyToSend() %}disabled{% endif %}
             data-action="sprout-campaign/campaign-email/prepare-schedule-campaign-email"
             data-email-id="{{ email.id }}"
             class="btn submit actions {% if not email.isReadyToSend() %}disabled{% endif %}">
-            {{ "Schedule Campaign"|t('sprout-campaign') }}
+            {{ "Schedule Campaign"|t('sprout-campaigns') }}
         </button>
     </div>
     <div class="buttons left">
-        <button id="cancel" class="btn">{{ "Cancel"|t('sprout-campaign') }}
+        <button id="cancel" class="btn">{{ "Cancel"|t('sprout-campaigns') }}
         </button>
     </div>
 

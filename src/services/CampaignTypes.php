@@ -122,7 +122,7 @@ class CampaignTypes extends Component
             $siteId = Craft::$app->getSites()->getPrimarySite()->id;
 
             Craft::$app->getQueue()->push(new ResaveElements([
-                'description' => Craft::t('sprout-campaign', 'Resaving campaign emails'),
+                'description' => Craft::t('sprout-campaigns', 'Resaving campaign emails'),
                 'elementType' => CampaignEmail::class,
                 'criteria' => [
                     'siteId' => $siteId,
@@ -183,7 +183,7 @@ class CampaignTypes extends Component
             !$campaignType->saveAsNew &&
             !$campaignTypeRecord) {
 
-            throw new Exception(Craft::t('sprout-campaign', 'No campaign exists with the ID “{id}”', [
+            throw new Exception(Craft::t('sprout-campaigns', 'No campaign exists with the ID “{id}”', [
                 'id' => $campaignType->id
             ]));
         }

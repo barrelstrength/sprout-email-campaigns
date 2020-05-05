@@ -95,7 +95,7 @@ class CampaignTypeController extends Controller
         $campaignType->setFieldLayout($fieldLayout);
 
         if (!SproutCampaign::$app->campaignTypes->saveCampaignType($campaignType)) {
-            Craft::$app->getSession()->setError(Craft::t('sprout-campaign', 'Unable to save campaign.'));
+            Craft::$app->getSession()->setError(Craft::t('sprout-campaigns', 'Unable to save campaign.'));
 
             Craft::$app->getUrlManager()->setRouteParams([
                 'campaignType' => $campaignType
@@ -104,7 +104,7 @@ class CampaignTypeController extends Controller
             $this->redirectToPostedUrl();
         }
 
-        Craft::$app->getSession()->setNotice(Craft::t('sprout-campaign', 'Campaign saved.'));
+        Craft::$app->getSession()->setNotice(Craft::t('sprout-campaigns', 'Campaign saved.'));
 
         $url = UrlHelper::cpUrl('sprout-campaign/settings/campaigntypes/edit/'.$campaignType->id);
 
@@ -127,14 +127,14 @@ class CampaignTypeController extends Controller
         $session = Craft::$app->getSession();
 
         if ($session and $result = sproutcampaign::$app->campaignTypes->deleteCampaignType($campaignTypeId)) {
-            $session->setNotice(Craft::t('sprout-campaign', 'Campaign Type deleted.'));
+            $session->setNotice(Craft::t('sprout-campaigns', 'Campaign Type deleted.'));
 
             return $this->asJson([
                 'success' => true
             ]);
         }
 
-        $session->setError(Craft::t('sprout-campaign', "Couldn't delete Campaign."));
+        $session->setError(Craft::t('sprout-campaigns', "Couldn't delete Campaign."));
 
         return $this->asJson([
             'success' => false

@@ -1,19 +1,19 @@
 {% import "_includes/forms" as forms %}
 
 <div class="body">
-    <h1>{{ 'Send Campaign'|t('sprout-campaign') }}</h1>
+    <h1>{{ 'Send Campaign'|t('sprout-campaigns') }}</h1>
 
     <table class="data fullwidth">
         <tbody>
         <tr>
-            <td><strong>{{ "Subject"|t('sprout-campaign') }}</strong></td>
+            <td><strong>{{ "Subject"|t('sprout-campaigns') }}</strong></td>
             <td class="title">{{ campaignEmail.title }}</td>
         </tr>
         <tr>
-            <td><strong>{{ "Delivery"|t('sprout-campaign') }}</strong></td>
+            <td><strong>{{ "Delivery"|t('sprout-campaigns') }}</strong></td>
             <td>
                 <em>{{ "Clicking the button below will send your email
-                    immediately and mark your email as sent."|t('sprout-campaign') }}</em>
+                    immediately and mark your email as sent."|t('sprout-campaigns') }}</em>
             </td>
         </tr>
         </tbody>
@@ -28,10 +28,10 @@
             class="btn submit actions"
             data-email-id="{{ campaignEmail.id }}"
             data-action="sprout-campaign/campaign-email/send-campaign-email"
-        >{{ "Send Email Now"|t('sprout-campaign') }}
+        >{{ "Send Email Now"|t('sprout-campaigns') }}
         </button>
     </div>
     <div class="buttons left secondary-buttons">
-        <button id="close" class="btn">{{ "Cancel"|t('sprout-campaign') }}</button>
+        <button id="close" class="btn">{{ "Cancel"|t('sprout-campaigns') }}</button>
     </div>
 </div>

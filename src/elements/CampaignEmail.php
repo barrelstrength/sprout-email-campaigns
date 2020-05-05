@@ -98,7 +98,7 @@ class CampaignEmail extends EmailElement
      */
     public static function displayName(): string
     {
-        return Craft::t('sprout-campaign', 'Campaign Email');
+        return Craft::t('sprout-campaigns', 'Campaign Email');
     }
 
     /**
@@ -106,7 +106,7 @@ class CampaignEmail extends EmailElement
      */
     public static function pluralDisplayName(): string
     {
-        return Craft::t('sprout-campaign', 'Campaign Emails');
+        return Craft::t('sprout-campaigns', 'Campaign Emails');
     }
 
     /**
@@ -163,10 +163,10 @@ class CampaignEmail extends EmailElement
     public static function statuses(): array
     {
         return [
-            self::DISABLED => Craft::t('sprout-campaign', 'Disabled'),
-            self::PENDING => Craft::t('sprout-campaign', 'Pending'),
-            ///self::SCHEDULED => Craft::t('sprout-campaign','Scheduled'),
-            self::SENT => Craft::t('sprout-campaign', 'Sent')
+            self::DISABLED => Craft::t('sprout-campaigns', 'Disabled'),
+            self::PENDING => Craft::t('sprout-campaigns', 'Pending'),
+            ///self::SCHEDULED => Craft::t('sprout-campaigns','Scheduled'),
+            self::SENT => Craft::t('sprout-campaigns', 'Sent')
         ];
     }
 
@@ -210,18 +210,18 @@ class CampaignEmail extends EmailElement
         $sources = [
             [
                 'key' => '*',
-                'label' => Craft::t('sprout-campaign', 'All campaigns')
+                'label' => Craft::t('sprout-campaigns', 'All campaigns')
             ]
         ];
 
         $campaignTypes = SproutCampaign::$app->campaignTypes->getCampaignTypes();
 
-        $sources[] = ['heading' => Craft::t('sprout-campaign', 'Campaigns')];
+        $sources[] = ['heading' => Craft::t('sprout-campaigns', 'Campaigns')];
 
         foreach ($campaignTypes as $campaignType) {
             $source = [
                 'key' => 'campaignTypeId:'.$campaignType->id,
-                'label' => Craft::t('sprout-campaign', $campaignType->name),
+                'label' => Craft::t('sprout-campaigns', $campaignType->name),
                 'criteria' => [
                     'campaignTypeId' => $campaignType->id
                 ]
@@ -243,8 +243,8 @@ class CampaignEmail extends EmailElement
         // Delete
         $actions[] = Craft::$app->getElements()->createAction([
             'type' => Delete::class,
-            'confirmationMessage' => Craft::t('sprout-campaign', 'Are you sure you want to delete the selected campaign emails?'),
-            'successMessage' => Craft::t('sprout-campaign', 'Campaign emails deleted.'),
+            'confirmationMessage' => Craft::t('sprout-campaigns', 'Are you sure you want to delete the selected campaign emails?'),
+            'successMessage' => Craft::t('sprout-campaigns', 'Campaign emails deleted.'),
         ]);
 
         return $actions;
@@ -257,14 +257,14 @@ class CampaignEmail extends EmailElement
     protected static function defineTableAttributes(): array
     {
         $attributes = [
-            'subjectLine' => ['label' => Craft::t('sprout-campaign', 'Subject')],
-            'contentCheck' => ['label' => Craft::t('sprout-campaign', 'Content')],
-            'recipientsCheck' => ['label' => Craft::t('sprout-campaign', 'Recipients')],
-            'dateCreated' => ['label' => Craft::t('sprout-campaign', 'Date Created')],
-            'dateSent' => ['label' => Craft::t('sprout-campaign', 'Date Sent')],
-            'send' => ['label' => Craft::t('sprout-campaign', 'Send')],
-            'preview' => ['label' => Craft::t('sprout-campaign', 'Preview'), 'icon' => 'view'],
-            'link' => ['label' => Craft::t('sprout-campaign', 'Link'), 'icon' => 'world']
+            'subjectLine' => ['label' => Craft::t('sprout-campaigns', 'Subject')],
+            'contentCheck' => ['label' => Craft::t('sprout-campaigns', 'Content')],
+            'recipientsCheck' => ['label' => Craft::t('sprout-campaigns', 'Recipients')],
+            'dateCreated' => ['label' => Craft::t('sprout-campaigns', 'Date Created')],
+            'dateSent' => ['label' => Craft::t('sprout-campaigns', 'Date Sent')],
+            'send' => ['label' => Craft::t('sprout-campaigns', 'Send')],
+            'preview' => ['label' => Craft::t('sprout-campaigns', 'Preview'), 'icon' => 'view'],
+            'link' => ['label' => Craft::t('sprout-campaigns', 'Link'), 'icon' => 'world']
         ];
 
         return $attributes;
@@ -276,9 +276,9 @@ class CampaignEmail extends EmailElement
     protected static function defineSortOptions(): array
     {
         return [
-            'title' => Craft::t('sprout-campaign', 'Title'),
-            'elements.dateCreated' => Craft::t('sprout-campaign', 'Date Created'),
-            'elements.dateUpdated' => Craft::t('sprout-campaign', 'Date Updated'),
+            'title' => Craft::t('sprout-campaigns', 'Title'),
+            'elements.dateCreated' => Craft::t('sprout-campaigns', 'Date Created'),
+            'elements.dateUpdated' => Craft::t('sprout-campaigns', 'Date Updated'),
         ];
     }
 
@@ -358,8 +358,8 @@ class CampaignEmail extends EmailElement
     {
         $campaignType = SproutCampaign::$app->campaignTypes->getCampaignTypeById($this->campaignTypeId);
 
-        $passHtml = '<span class="success" title="'.Craft::t('sprout-campaign', 'Passed').'" data-icon="check"></span>';
-        $failHtml = '<span class="error" title="'.Craft::t('sprout-campaign', 'Failed').'" data-icon="error"></span>';
+        $passHtml = '<span class="success" title="'.Craft::t('sprout-campaigns', 'Passed').'" data-icon="check"></span>';
+        $failHtml = '<span class="error" title="'.Craft::t('sprout-campaigns', 'Failed').'" data-icon="error"></span>';
 
         if ($attribute === 'send') {
             $mailer = $campaignType->getMailer();
@@ -451,8 +451,8 @@ class CampaignEmail extends EmailElement
             !empty($this->{$attribute}) &&
             !filter_var($value, FILTER_VALIDATE_EMAIL)) {
 
-            $this->addError($attribute, Craft::t('sprout-campaign', '{attribute} is not a valid email address.', [
-                'attribute' => ($attribute == 'replyToEmail') ? Craft::t('sprout-campaign', 'Reply To') : Craft::t('sprout-campaign', 'From Email'),
+            $this->addError($attribute, Craft::t('sprout-campaigns', '{attribute} is not a valid email address.', [
+                'attribute' => ($attribute == 'replyToEmail') ? Craft::t('sprout-campaigns', 'Reply To') : Craft::t('sprout-campaigns', 'From Email'),
             ]));
         }
     }
@@ -472,7 +472,7 @@ class CampaignEmail extends EmailElement
                     !empty($this->{$attribute}) &&
                     !filter_var($recipient, FILTER_VALIDATE_EMAIL)) {
 
-                    $this->addError($attribute, Craft::t('sprout-campaign', 'All recipients must be placeholders or valid email addresses.', [
+                    $this->addError($attribute, Craft::t('sprout-campaigns', 'All recipients must be placeholders or valid email addresses.', [
                         'attribute' => $attribute,
                     ]));
                 }

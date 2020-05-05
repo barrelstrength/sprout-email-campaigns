@@ -2,13 +2,13 @@
 
 <div class="body">
 
-    <h1>{{ "Copy & Paste"|t('sprout-campaign') }}</h1>
+    <h1>{{ "Copy & Paste"|t('sprout-campaigns') }}</h1>
 
     {% set dateScheduled = craft.sproutEmail.getDisplayDateScheduled(email) %}
 
     {% if dateScheduled is not empty %}
         <div style="float:left; margin-bottom: 20px;">
-            <strong>{{ "Date Scheduled"|t('sprout-campaign') }}
+            <strong>{{ "Date Scheduled"|t('sprout-campaigns') }}
                 :</strong> {{ dateScheduled|date("F jS Y \\a\\t g:ia") }}
         </div>
         <div style="clear: both"></div>
@@ -16,14 +16,14 @@
 
     <div style="position:relative;">
         <div style="float:left;">
-            <strong>{{ "HTML Content"|t('sprout-campaign') }}</strong></div>
+            <strong>{{ "HTML Content"|t('sprout-campaigns') }}</strong></div>
 
         <div style="float:right;margin:-2px 0 5px;">
             <a href="#" class="btnSelectAll btn small formsubmit"
                 data-clipboard-target-id="html-content"
-                data-success-message="{{ 'HTML content copied to your clipboard.'|t('sprout-campaign') }}"
-                title="{{ 'Select HTML Content'|t('sprout-campaign') }}">
-                {{ "Select HTML"|t('sprout-campaign') }}
+                data-success-message="{{ 'HTML content copied to your clipboard.'|t('sprout-campaigns') }}"
+                title="{{ 'Select HTML Content'|t('sprout-campaigns') }}">
+                {{ "Select HTML"|t('sprout-campaigns') }}
             </a>
         </div>
     </div>
@@ -41,14 +41,14 @@
 
     <div style="position:relative;margin-top:30px;">
         <div style="float:left;">
-            <strong>{{ "Text Content"|t('sprout-campaign') }}</strong></div>
+            <strong>{{ "Text Content"|t('sprout-campaigns') }}</strong></div>
 
         <div style="float:right;margin:-2px 0 5px;">
             <a href="#" class="btnSelectAll btn small formsubmit"
                 data-clipboard-target-id="text-content"
-                data-success-message="{{ 'Text content copied to your clipboard.'|t('sprout-campaign') }}"
-                title="{{ 'Select Text Content'|t('sprout-campaign') }}">
-                {{ "Select Text"|t('sprout-campaign') }}
+                data-success-message="{{ 'Text content copied to your clipboard.'|t('sprout-campaigns') }}"
+                title="{{ 'Select Text Content'|t('sprout-campaigns') }}">
+                {{ "Select Text"|t('sprout-campaigns') }}
             </a>
         </div>
     </div>
@@ -68,14 +68,14 @@
 <div class="footer">
 
     <div class="buttons left">
-        <button id="close" class="btn">{{ "Cancel"|t('sprout-campaign') }}</button>
+        <button id="close" class="btn">{{ "Cancel"|t('sprout-campaigns') }}</button>
     </div>
     <div class="buttons right actions">
         <button
             data-action="sprout-campaign/copy-paste/mark-sent"
             data-email-id="{{ email.id }}"
             class="btn submit">
-            {{ "Mark as Sent"|t('sprout-campaign') }}
+            {{ "Mark as Sent"|t('sprout-campaigns') }}
         </button>
     </div>
 
