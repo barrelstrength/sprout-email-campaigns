@@ -10,6 +10,8 @@
 
 namespace barrelstrength\sproutcampaigns;
 
+use barrelstrength\sproutbase\base\SproutDependencyInterface;
+use barrelstrength\sproutbase\base\SproutDependencyTrait;
 use barrelstrength\sproutbaseemail\events\RegisterMailersEvent;
 use barrelstrength\sproutbaseemail\SproutBaseEmailHelper;
 use barrelstrength\sproutcampaigns\mailers\CopyPasteMailer;
@@ -37,8 +39,10 @@ use yii\base\InvalidConfigException;
  * @property array[]|array $userPermissions
  * @property array         $cpUrlRules
  */
-class SproutCampaigns extends Plugin
+class SproutCampaigns extends Plugin implements SproutDependencyInterface
 {
+    use SproutDependencyTrait;
+
     /**
      * Enable use of SproutCampaign::$plugin-> in place of Craft::$app->
      *
@@ -193,6 +197,22 @@ class SproutCampaigns extends Plugin
                     ]
                 ]
             ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getSproutDependencies(): array
+    {
+        return [
+            SproutDependencyInterface::SPROUT_BASE,
+//            SproutDependencyInterface::SPROUT_BASE_EMAIL,
+            SproutDependencyInterface::SPROUT_BASE_FIELDS,
+            SproutDependencyInterface::SPROUT_BASE_SENT_EMAIL,
+
+            // Has dependency but relies on Sprout Reports Pro to install reports tables
+            SproutDependencyInterface::SPROUT_BASE_REPORTS
         ];
     }
 }

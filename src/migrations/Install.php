@@ -7,88 +7,113 @@
 
 namespace barrelstrength\sproutcampaigns\migrations;
 
+use barrelstrength\sproutbase\base\SproutDependencyInterface;
+use barrelstrength\sproutbase\migrations\Install as SproutBaseInstall;
+use barrelstrength\sproutbaseemail\migrations\Install as SproutBaseEmailInstall;
+use barrelstrength\sproutbasefields\migrations\Install as SproutBaseFieldsInstall;
+use barrelstrength\sproutbasesentemail\migrations\Install as SproutBaseSentEmailInstall;
+use barrelstrength\sproutcampaigns\elements\CampaignEmail;
+use barrelstrength\sproutcampaigns\records\CampaignEmail as CampaignEmailRecord;
+use barrelstrength\sproutcampaigns\records\CampaignType as CampaignTypeRecord;
+use barrelstrength\sproutemail\SproutEmail;
 use craft\db\Migration;
+use craft\db\Table;
 
 class Install extends Migration
 {
-    private $campaignTypeTable = '{{%sproutemail_campaigntypes}}';
-    private $campaignEmailTable = '{{%sproutemail_campaignemails}}';
-
     /**
      * @inheritdoc
      */
     public function safeUp()
     {
-        $this->createTables();
+        $migration = new SproutBaseInstall();
+        ob_start();
+        $migration->safeUp();
+        ob_end_clean();
+
+        if (!$this->getDb()->tableExists(CampaignTypeRecord::tableName())) {
+            $this->createTable(CampaignTypeRecord::tableName(), [
+                'id' => $this->primaryKey(),
+                'name' => $this->string()->notNull(),
+                'handle' => $this->string()->notNull(),
+                'mailer' => $this->string()->notNull(),
+                'emailTemplateId' => $this->string(),
+                'titleFormat' => $this->string(),
+                'urlFormat' => $this->string(),
+                'hasUrls' => $this->boolean(),
+                'hasAdvancedTitles' => $this->boolean(),
+                'template' => $this->string(),
+                'templateCopyPaste' => $this->string(),
+                'fieldLayoutId' => $this->integer(),
+                'dateCreated' => $this->dateTime()->notNull(),
+                'dateUpdated' => $this->dateTime()->notNull(),
+                'uid' => $this->uid()
+            ]);
+        }
+
+        if (!$this->getDb()->tableExists(CampaignEmailRecord::tableName())) {
+            $this->createTable(CampaignEmailRecord::tableName(), [
+                'id' => $this->primaryKey(),
+                'subjectLine' => $this->string()->notNull(),
+                'campaignTypeId' => $this->integer()->notNull(),
+                'recipients' => $this->text(),
+                'emailSettings' => $this->text(),
+                'defaultBody' => $this->text(),
+                'listSettings' => $this->text(),
+                'fromName' => $this->string(),
+                'fromEmail' => $this->string(),
+                'replyToEmail' => $this->string(),
+                'enableFileAttachments' => $this->boolean(),
+                'dateScheduled' => $this->dateTime(),
+                'dateSent' => $this->dateTime(),
+                'dateCreated' => $this->dateTime()->notNull(),
+                'dateUpdated' => $this->dateTime()->notNull(),
+                'uid' => $this->uid()
+            ]);
+
+            $this->addForeignKey(null, CampaignEmailRecord::tableName(), ['id'], Table::ELEMENTS, ['id'], 'CASCADE');
+        }
     }
 
-    public function createTables()
+    public function safeDown()
     {
-        $campaignTypeTableExists = $this->getDb()->tableExists($this->campaignTypeTable);
+        /** @var SproutEmail $plugin */
+        $plugin = SproutEmail::getInstance();
 
-        if ($campaignTypeTableExists == false) {
-            $this->createTable($this->campaignTypeTable,
-                [
-                    'id' => $this->primaryKey(),
-                    'name' => $this->string()->notNull(),
-                    'handle' => $this->string()->notNull(),
-                    'mailer' => $this->string()->notNull(),
-                    'emailTemplateId' => $this->string(),
-                    'titleFormat' => $this->string(),
-                    'urlFormat' => $this->string(),
-                    'hasUrls' => $this->boolean(),
-                    'hasAdvancedTitles' => $this->boolean(),
-                    'template' => $this->string(),
-                    'templateCopyPaste' => $this->string(),
-                    'fieldLayoutId' => $this->integer(),
-                    'dateCreated' => $this->dateTime()->notNull(),
-                    'dateUpdated' => $this->dateTime()->notNull(),
-                    'uid' => $this->uid()
-                ]
-            );
+        $sproutBaseEmailInUse = $plugin->dependencyInUse(SproutDependencyInterface::SPROUT_BASE_EMAIL);
+        $sproutBaseFieldsInUse = $plugin->dependencyInUse(SproutDependencyInterface::SPROUT_BASE_FIELDS);
+        $sproutBaseSentEmailInUse = $plugin->dependencyInUse(SproutDependencyInterface::SPROUT_BASE_SENT_EMAIL);
+        $sproutBaseInUse = $plugin->dependencyInUse(SproutDependencyInterface::SPROUT_BASE);
+
+        if (!$sproutBaseFieldsInUse) {
+            $migration = new SproutBaseFieldsInstall();
+
+            ob_start();
+            $migration->safeDown();
+            ob_end_clean();
         }
 
-        $campaignEmailTableExists = $this->getDb()->tableExists($this->campaignEmailTable);
+        if (!$sproutBaseSentEmailInUse) {
+            $migration = new SproutBaseSentEmailInstall();
 
-        if ($campaignEmailTableExists == false) {
-            $this->createTable($this->campaignEmailTable,
-                [
-                    'id' => $this->primaryKey(),
-                    'subjectLine' => $this->string()->notNull(),
-                    'campaignTypeId' => $this->integer()->notNull(),
-                    'recipients' => $this->text(),
-                    'emailSettings' => $this->text(),
-                    'defaultBody' => $this->text(),
-                    'listSettings' => $this->text(),
-                    'fromName' => $this->string(),
-                    'fromEmail' => $this->string(),
-                    'replyToEmail' => $this->string(),
-                    'enableFileAttachments' => $this->boolean(),
-                    'dateScheduled' => $this->dateTime(),
-                    'dateSent' => $this->dateTime(),
-                    'dateCreated' => $this->dateTime()->notNull(),
-                    'dateUpdated' => $this->dateTime()->notNull(),
-                    'uid' => $this->uid()
-                ]
-            );
-
-            $this->addForeignKey(null, $this->campaignEmailTable, ['id'], '{{%elements}}', ['id'], 'CASCADE', null);
+            ob_start();
+            $migration->safeDown();
+            ob_end_clean();
         }
 
-    }
+        if (!$sproutBaseInUse) {
+            $migration = new SproutBaseInstall();
 
-    public function dropTables()
-    {
-        $campaignTypeTable = $this->getDb()->tableExists($this->campaignTypeTable);
-
-        if ($campaignTypeTable) {
-            $this->dropTable($this->campaignTypeTable);
+            ob_start();
+            $migration->safeDown();
+            ob_end_clean();
         }
 
-        $campaignEmailTable = $this->getDb()->tableExists($this->campaignEmailTable);
+        // Delete Notification Email Elements
+        $this->delete(Table::ELEMENTS, ['type' => CampaignEmail::class]);
 
-        if ($campaignEmailTable) {
-            $this->dropTable($this->campaignEmailTable);
-        }
+        $this->dropTableIfExists('{{%sproutemail_campaigntypes}}');
+        $this->dropTableIfExists('{{%sproutemail_campaignemails}}');
+//        $this->dropTableIfExists('{{%sproutemail_mailers}}');
     }
 }
