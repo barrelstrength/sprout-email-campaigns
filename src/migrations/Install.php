@@ -7,14 +7,14 @@
 
 namespace barrelstrength\sproutcampaigns\migrations;
 
-use barrelstrength\sproutbase\base\SproutDependencyInterface;
 use barrelstrength\sproutbase\migrations\Install as SproutBaseInstall;
-use barrelstrength\sproutbasefields\migrations\Install as SproutBaseFieldsInstall;
-use barrelstrength\sproutbasesentemail\migrations\Install as SproutBaseSentEmailInstall;
-use barrelstrength\sproutcampaigns\elements\CampaignEmail;
-use barrelstrength\sproutcampaigns\records\CampaignEmail as CampaignEmailRecord;
-use barrelstrength\sproutcampaigns\records\CampaignType as CampaignTypeRecord;
-use barrelstrength\sproutemail\SproutEmail;
+use barrelstrength\sproutbase\app\fields\migrations\Install as SproutBaseFieldsInstall;
+use barrelstrength\sproutbase\SproutBase;
+use barrelstrength\sproutbase\app\sentemail\migrations\Install as SproutBaseSentEmailInstall;
+use barrelstrength\sproutbase\app\campaigns\elements\CampaignEmail;
+use barrelstrength\sproutbase\app\campaigns\records\CampaignEmail as CampaignEmailRecord;
+use barrelstrength\sproutbase\app\campaigns\records\CampaignType as CampaignTypeRecord;
+use barrelstrength\sproutcampaigns\SproutCampaigns;
 use craft\db\Migration;
 use craft\db\Table;
 
@@ -25,10 +25,7 @@ class Install extends Migration
      */
     public function safeUp()
     {
-        $migration = new SproutBaseInstall();
-        ob_start();
-        $migration->safeUp();
-        ob_end_clean();
+        SproutBase::$app->config->runInstallMigrations(SproutCampaigns::getInstance());
 
         if (!$this->getDb()->tableExists(CampaignTypeRecord::tableName())) {
             $this->createTable(CampaignTypeRecord::tableName(), [
@@ -76,37 +73,7 @@ class Install extends Migration
 
     public function safeDown()
     {
-        /** @var SproutEmail $plugin */
-        $plugin = SproutEmail::getInstance();
-
-        $sproutBaseEmailInUse = $plugin->dependencyInUse(SproutDependencyInterface::SPROUT_BASE_EMAIL);
-        $sproutBaseFieldsInUse = $plugin->dependencyInUse(SproutDependencyInterface::SPROUT_BASE_FIELDS);
-        $sproutBaseSentEmailInUse = $plugin->dependencyInUse(SproutDependencyInterface::SPROUT_BASE_SENT_EMAIL);
-        $sproutBaseInUse = $plugin->dependencyInUse(SproutDependencyInterface::SPROUT_BASE);
-
-        if (!$sproutBaseFieldsInUse) {
-            $migration = new SproutBaseFieldsInstall();
-
-            ob_start();
-            $migration->safeDown();
-            ob_end_clean();
-        }
-
-        if (!$sproutBaseSentEmailInUse) {
-            $migration = new SproutBaseSentEmailInstall();
-
-            ob_start();
-            $migration->safeDown();
-            ob_end_clean();
-        }
-
-        if (!$sproutBaseInUse) {
-            $migration = new SproutBaseInstall();
-
-            ob_start();
-            $migration->safeDown();
-            ob_end_clean();
-        }
+        SproutBase::$app->config->runUninstallMigrations(SproutCampaigns::getInstance());
 
         // Delete Notification Email Elements
         $this->delete(Table::ELEMENTS, ['type' => CampaignEmail::class]);
