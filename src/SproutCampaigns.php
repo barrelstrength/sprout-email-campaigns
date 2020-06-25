@@ -10,17 +10,17 @@
 
 namespace barrelstrength\sproutcampaigns;
 
-use barrelstrength\sproutbase\config\base\SproutCentralInterface;
+use barrelstrength\sproutbase\config\base\SproutBasePlugin;
 use barrelstrength\sproutbase\config\configs\CampaignsConfig;
-use barrelstrength\sproutbase\config\configs\EmailConfig;
-use barrelstrength\sproutbase\config\configs\GeneralConfig;
+use barrelstrength\sproutbase\config\configs\EmailPreviewConfig;
+use barrelstrength\sproutbase\config\configs\NotificationsConfig;
+use barrelstrength\sproutbase\config\configs\ControlPanelConfig;
 use barrelstrength\sproutbase\config\configs\ReportsConfig;
 use barrelstrength\sproutbase\config\configs\SentEmailConfig;
 use barrelstrength\sproutbase\SproutBaseHelper;
 use Craft;
-use craft\base\Plugin;
 
-class SproutCampaigns extends Plugin implements SproutCentralInterface
+class SproutCampaigns extends SproutBasePlugin
 {
     const EDITION_LITE = 'lite';
     const EDITION_PRO = 'pro';
@@ -35,9 +35,6 @@ class SproutCampaigns extends Plugin implements SproutCentralInterface
      */
     public $minVersionRequired = '1.0.0';
 
-    /**
-     * @inheritdoc
-     */
     public static function editions(): array
     {
         return [
@@ -49,14 +46,10 @@ class SproutCampaigns extends Plugin implements SproutCentralInterface
     public static function getSproutConfigs(): array
     {
         return [
-            GeneralConfig::class,
             CampaignsConfig::class,
-            EmailConfig::class,
+            NotificationsConfig::class,
             SentEmailConfig::class,
-
-            // @todo - migration review
-            // Has dependency for Mailing Lists relies on
-            // Sprout Reports Pro to install reports tables?
+            EmailPreviewConfig::class,
             ReportsConfig::class
         ];
     }
@@ -66,7 +59,5 @@ class SproutCampaigns extends Plugin implements SproutCentralInterface
         parent::init();
 
         SproutBaseHelper::registerModule();
-
-        Craft::setAlias('@sproutcampaigns', $this->getBasePath());
     }
 }
