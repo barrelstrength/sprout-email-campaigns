@@ -49,7 +49,6 @@ class SproutCampaigns extends SproutBasePlugin
             CampaignsConfig::class,
             NotificationsConfig::class,
             SentEmailConfig::class,
-            EmailPreviewConfig::class,
             ReportsConfig::class
         ];
     }
