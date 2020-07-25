@@ -1,7 +1,7 @@
 {
   "name": "barrelstrength/sprout-campaigns",
   "description": "Send Campaign Emails and integrate with third-party email marketing platforms",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.1",
   "type": "craft-plugin",
   "keywords": [
     "craft",
@@ -27,7 +27,7 @@
     "rss": "https://github.com/barrelstrength/sprout-base/commits/v2.atom"
   },
   "require": {
-    "craftcms/cms": "^3.4.0",
+    "craftcms/cms": "^3.5.0",
     "barrelstrength/sprout-base": "^7.0.0"
   },
   "autoload": {
