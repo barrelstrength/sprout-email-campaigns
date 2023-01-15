@@ -1,5 +1,5 @@
 {
-	"name": "barrelstrength/sprout-campaigns",
+	"name": "barrelstrength/sprout-email-campaigns",
 	"type": "craft-plugin",
 	"version": "0.0.1",
 	"require": {
@@ -11,12 +11,12 @@
 		}
 	},
 	"extra": {
-		"name": "Sprout Campaigns",
-		"handle": "sprout-campaigns",
+		"name": "Sprout Email - Campaigns",
+		"handle": "sprout-email-campaigns",
 		"developer": "Barrel Strength Design",
 		"developerUrl": "https://barrelstrengthdesign.com",
 		"developerEmail": "support@barrelstrengthdesign.com",
 		"documentationUrl": "https://barrelstrengthdesign.com",
-		"class": "BarrelStrength\\SproutCampaigns\\SproutCampaigns"
+		"class": "BarrelStrength\\SproutEmailCampaigns\\SproutEmailCampaigns"
 	}
 }

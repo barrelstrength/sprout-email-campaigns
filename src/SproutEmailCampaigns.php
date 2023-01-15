@@ -1,6 +1,6 @@
 <?php
 
-namespace BarrelStrength\SproutCampaigns;
+namespace BarrelStrength\SproutEmailCampaigns;
 
 use BarrelStrength\Sprout\campaigns\CampaignsModule;
 use BarrelStrength\Sprout\core\db\MigrationHelper;
@@ -18,11 +18,8 @@ use craft\helpers\UrlHelper;
 use yii\base\Event;
 use yii\base\InvalidConfigException;
 
-class SproutCampaigns extends Plugin implements SproutPluginMigrationInterface
+class SproutEmailCampaigns extends Plugin implements SproutPluginMigrationInterface
 {
-    public const EDITION_LITE = 'lite';
-    public const EDITION_PRO = 'pro';
-
 //    public $minVersionRequired = '1.5.3';
 
     /**
@@ -31,16 +28,16 @@ class SproutCampaigns extends Plugin implements SproutPluginMigrationInterface
     public static function editions(): array
     {
         return [
-            self::EDITION_LITE,
-            self::EDITION_PRO,
+            Edition::LITE,
+            Edition::PRO,
         ];
     }
 
     public static function getSchemaDependencies(): array
     {
         return [
+            MailerModule::class, // Install first
             CampaignsModule::class,
-            MailerModule::class,
         ];
     }
 
@@ -77,7 +74,7 @@ class SproutCampaigns extends Plugin implements SproutPluginMigrationInterface
 
     protected function grantModuleEditions(): void
     {
-        if ($this->edition === self::EDITION_PRO) {
+        if ($this->edition === Edition::PRO) {
             CampaignsModule::isEnabled() && CampaignsModule::getInstance()->grantEdition(Edition::PRO);
         }
     }
