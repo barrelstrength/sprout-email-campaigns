@@ -12,19 +12,14 @@ use BarrelStrength\Sprout\mailer\MailerModule;
 use Craft;
 use craft\base\Plugin;
 use craft\db\MigrationManager;
-use craft\errors\MigrationException;
 use craft\events\RegisterComponentTypesEvent;
 use craft\helpers\UrlHelper;
 use yii\base\Event;
-use yii\base\InvalidConfigException;
 
 class SproutEmailCampaigns extends Plugin implements SproutPluginMigrationInterface
 {
-//    public $minVersionRequired = '1.5.3';
+    public string $schemaVersion = '4.44.444';
 
-    /**
-     * @inheritDoc
-     */
     public static function editions(): array
     {
         return [
@@ -41,15 +36,10 @@ class SproutEmailCampaigns extends Plugin implements SproutPluginMigrationInterf
         ];
     }
 
-    /**
-     * @throws InvalidConfigException
-     */
     public function getMigrator(): MigrationManager
     {
         return SproutPluginMigrator::make($this);
     }
-
-    public string $schemaVersion = '0.0.1';
 
     public function init(): void
     {
@@ -58,7 +48,7 @@ class SproutEmailCampaigns extends Plugin implements SproutPluginMigrationInterf
         Event::on(
             Modules::class,
             Modules::EVENT_REGISTER_SPROUT_AVAILABLE_MODULES,
-            function(RegisterComponentTypesEvent $event) {
+            static function(RegisterComponentTypesEvent $event) {
                 $event->types[] = CampaignsModule::class;
             }
         );
@@ -79,9 +69,6 @@ class SproutEmailCampaigns extends Plugin implements SproutPluginMigrationInterf
         }
     }
 
-    /**
-     * @throws MigrationException
-     */
     protected function afterInstall(): void
     {
         MigrationHelper::runMigrations($this);
@@ -95,10 +82,6 @@ class SproutEmailCampaigns extends Plugin implements SproutPluginMigrationInterf
         Craft::$app->getResponse()->redirect($url)->send();
     }
 
-    /**
-     * @throws MigrationException
-     * @throws InvalidConfigException
-     */
     protected function beforeUninstall(): void
     {
         MigrationHelper::runUninstallMigrations($this);
