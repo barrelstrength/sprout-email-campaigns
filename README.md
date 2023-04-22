@@ -2,11 +2,6 @@
 
 Manage Campaign Emails within your Craft web application workflow
 
-## Resources
-
-- [Documentation](https://sprout.barrelstrengthdesign.com/docs/campaigns/)
-  [//]: # (- [Craft Plugin Store]&#40;https://plugins.craftcms.com/sprout-campaigns&#41;)
-
 ## Support
 
 Support for all Sprout Marketing Suite plugins is managed in the [main Sprout Framework repository][#sprout].
